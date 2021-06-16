@@ -1,0 +1,80 @@
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  Button,
+  TouchableOpacity,
+} from "react-native";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import FlashMessage from "react-native-flash-message";
+
+
+export default function tempHomeScreen({ navigation }) {
+
+
+ React.useEffect(
+                () =>
+                  navigation.addListener('beforeRemove', (e) => {
+                    e.preventDefault();
+
+                    Alert.alert(
+                      'Exit App?',
+                      'Going back on this screen will cause you to be logged out!',
+                      [
+                        { text: "Don't leave", style: 'cancel', onPress: () => {} },
+                        {
+                          text: 'Log Out',
+                          style: 'destructive',
+                          onPress: () => navigation.dispatch(e.data.action),
+                        },
+                      ]
+                    );
+                  }),
+                  );
+    return (
+        <View style={styles.container}>
+                    <TouchableOpacity style = {styles.button} activeOpacity = { .5 } onPress={ () => navigation.openDrawer()}>
+                    <Image
+                    style={styles.image}
+                    source={require("../assets/menutemp2.png")}
+                    />
+                    </TouchableOpacity>
+                    <Text>
+                    Hi welcome to the app menu!
+                    You can click the menu button on the top left to access all the features of the application,
+                    or click the button below to launch the app!
+
+                    </Text>
+
+        </View>
+        );
+
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  button: {
+    bottom: 300,
+    right: 150,
+    borderRadius: 25,
+    },
+
+  image: {
+    flex: 1,
+    width: 300,
+    height: 300,
+    resizeMode: 'contain' }
+  })
