@@ -44,7 +44,7 @@ export default function tempHomeScreen({ navigation }) {
                     <TouchableOpacity activeOpacity = { .5 } onPress={ () => navigation.openDrawer()}>
                     <Image
                     style={styles.image}
-                    source={require("../assets/menu.png")}
+                    source={require("../assets/menutemp2.png")}
                     />
                     </TouchableOpacity>
         </View>
@@ -89,6 +89,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "flex-start",
     flexDirection: "row",
+    width: 250,
+    height: 250,
   },
 
   content :{
@@ -98,8 +100,8 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: 50,
-    height: 50
+    width: 100,
+    height: 100
    },
 
   button: {
