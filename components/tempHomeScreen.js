@@ -38,21 +38,38 @@ export default function tempHomeScreen({ navigation }) {
                   }),
                   );
     return (
+
         <View style={styles.container}>
-                    <TouchableOpacity style = {styles.button} activeOpacity = { .5 } onPress={ () => navigation.openDrawer()}>
+        <View style={styles.Menu}>
+                    <TouchableOpacity activeOpacity = { .5 } onPress={ () => navigation.openDrawer()}>
                     <Image
                     style={styles.image}
-                    source={require("../assets/menutemp2.png")}
+                    source={require("../assets/menu.png")}
                     />
                     </TouchableOpacity>
-                    <Text>
-                    Hi welcome to the app menu!
+        </View>
+
+        <View style = {styles.content}>
+
+                    <Text> Hi welcome to the app menu!
                     You can click the menu button on the top left to access all the features of the application,
                     or click the button below to launch the app!
-
                     </Text>
 
+
+        <TouchableOpacity
+              style={styles.button}
+              onPress = { () => navigation.navigate('camera')
+                                  }>
+                <Text style = {styles.text} >Start app!</Text>
+              </TouchableOpacity>
+
+
         </View>
+
+
+        </View>
+
         );
 
 }
@@ -60,21 +77,39 @@ export default function tempHomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  button: {
-    bottom: 300,
-    right: 150,
-    borderRadius: 25,
+      flex: 1,
+      backgroundColor: "#fff",
+      alignItems: "flex-start",
+      justifyContent: "center",
     },
 
-  image: {
+  Menu: {
     flex: 1,
-    width: 300,
-    height: 300,
-    resizeMode: 'contain' }
+    backgroundColor: "#fff",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    flexDirection: "row",
+  },
+
+  content :{
+  flex: 3,
+  alignItems: "center",
+  padding: 30,
+  },
+
+  image: {
+    width: 50,
+    height: 50
+   },
+
+  button: {
+    width: 150,
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: "#14b9ff",
+    },
+
   })

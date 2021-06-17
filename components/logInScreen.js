@@ -80,7 +80,7 @@ export default function loginScreen({ navigation }) {
                           description: "You have been logged in successfully",
                           type: "success",
                                           })
-                      navigation.navigate("Logged In screens");
+                      navigation.navigate("Logged In");
                       }
 
                       else if(response.data === "incorrect password") {
@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
     width: "70%",
     height: 45,
     marginBottom: 20,
-
     alignItems: "flex-start",
   },
 

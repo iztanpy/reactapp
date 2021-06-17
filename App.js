@@ -23,7 +23,7 @@ function loggedInTabs() {
     return (
     <Drawer.Navigator>
           <Drawer.Screen name= "Home" component={tempHomeScreen} />
-          <Drawer.Screen name= "Stay Awake Stay Safe" component={cameraScreen} options={{unmountOnBlur: true}}/>
+          <Drawer.Screen name= "camera" component={cameraScreen} options={{unmountOnBlur: true}}/>
         </Drawer.Navigator>
         );
         }
@@ -45,7 +45,7 @@ export default function App() {
                }}>
               <Stack.Screen name="login" component={logInScreen} />
               <Stack.Screen name="signup" component={signUpScreen} />
-              <Stack.Screen name="Logged In screens" component={loggedInTabs}
+              <Stack.Screen name="Logged In" component={loggedInTabs}
                options = {{}}/>
               <Stack.Screen name="tempForget" component={tempForgetScreen} />
             </Stack.Navigator>
