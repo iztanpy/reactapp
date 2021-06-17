@@ -64,6 +64,12 @@ export default function tempHomeScreen({ navigation }) {
                 <Text style = {styles.text} >Start app!</Text>
               </TouchableOpacity>
 
+        <TouchableOpacity
+                      style={styles.button}
+                      >
+                        <Text style = {styles.text} >Calibrate</Text>
+                      </TouchableOpacity>
+
 
         </View>
 

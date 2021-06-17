@@ -162,8 +162,8 @@ const styles = StyleSheet.create({
   },
 
   image: {
-  height: 200,
-  width: 350,
+  height: 130,
+  width: 230,
   marginBottom: 30,
   }
 });
