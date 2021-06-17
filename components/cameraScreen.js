@@ -22,6 +22,7 @@ const axios = require('axios').default;
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
+  const [disableCalibration, setDisable] = useState(false);
   let record = false;
   const sound = new Audio.Sound();
   const cameraRef = useRef(null)
@@ -57,8 +58,8 @@ export default function App() {
             .then (function (response) {
             if (response.data === "yes") {
                 playSound()
-            };}
-            )
+            };
+            })
             .catch(function (error) {
             })
             }
@@ -72,8 +73,11 @@ export default function App() {
       <View style={styles.buttonContainer}>
                 <TouchableOpacity
                   style={styles.button}
+                  disabled = {disableCalibration}
                   onPress={async () => {
                   await sound.loadAsync(require('../assets/sounds/alarm.mp3'));
+                  setDisable(!disableCalibration);
+                  console.log(disableCalibration)
                   record = !record
 
                     record = true;
@@ -94,7 +98,11 @@ export default function App() {
                   <Text style={styles.text}> Calibrate </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button} onPress={() => {
+                <TouchableOpacity
+                style={styles.button}
+                disabled = {!disableCalibration}
+                onPress={() => {
+                  setDisable(!disableCalibration)
                   record = false;
                   sound.unloadAsync()
                 }}>
@@ -110,7 +118,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#c0d4ff",
+    backgroundColor: "#222831",
   },
   camera: {
     width: Dimensions.get('window').width,

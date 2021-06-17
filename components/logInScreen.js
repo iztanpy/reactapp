@@ -30,7 +30,7 @@ export default function loginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-    <Image style={styles.image} source={require("../assets/favicon.png")} />
+    <Image style={styles.image} source={require("../assets/logo2.png")} />
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
@@ -116,7 +116,7 @@ export default function loginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#30475E",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
 
   inputView: {
-    backgroundColor: "#c0d4ff",
+    backgroundColor: "#DDDDDD",
     borderRadius: 30,
     width: "70%",
     height: 45,
@@ -158,7 +158,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    backgroundColor: "#14b9ff",
+    backgroundColor: "#F05454",
   },
+
+  image: {
+  height: 200,
+  width: 350,
+  marginBottom: 30,
+  }
 });
 

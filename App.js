@@ -21,7 +21,7 @@ const Stack = createStackNavigator();
 
 function loggedInTabs() {
     return (
-    <Drawer.Navigator>
+    <Drawer.Navigator drawerStyle = {styles.drawer} overlayColor="transparent">
           <Drawer.Screen name= "Home" component={tempHomeScreen} />
           <Drawer.Screen name= "camera" component={cameraScreen} options={{unmountOnBlur: true}}/>
         </Drawer.Navigator>
@@ -36,9 +36,9 @@ export default function App() {
             initialRouteName="login"
             screenOptions={{
                headerStyle: {
-               backgroundColor: "#c0d4ff",
+               backgroundColor: "#222831",
                },
-               headerTintColor: '#fff',
+               headerTintColor: '#F05454',
                headerTitleStyle: {
                fontWeight: 'bold',
                },
@@ -62,4 +62,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  drawer: {
+  backgroundColor: '#c6cbef'
+  }
+
 });
