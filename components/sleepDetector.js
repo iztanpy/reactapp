@@ -13,7 +13,8 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Camera } from 'expo-camera';
-import {Audio} from 'expo-av';
+import { Audio } from 'expo-av';
+import { showMessage, hideMessage } from "react-native-flash-message";
 
 
 const axios = require('axios').default;
@@ -26,10 +27,9 @@ export default function SleepDetector(props) {
   const sound = new Audio.Sound();
   let record = false;
 
-  async function playSound() {
-    await sound.playAsync();
-    console.log('play song');
-    }
+    async function playSound() {
+      await sound.playAsync();
+      }
 
   let item;
   axios.post('https://glacial-springs-53214.herokuapp.com/get_value',{name:props.name})
@@ -57,7 +57,7 @@ export default function SleepDetector(props) {
           axios.post("https://glacial-springs-53214.herokuapp.com/video_player", {picture: photo})
           .then (function (response) {
             if (parseFloat(response.data) < item) {
-              //playSound()
+              playSound()
               console.log('yes');
           }
           else{
@@ -68,63 +68,103 @@ export default function SleepDetector(props) {
           })
           }
           
-//        let {base64} = photo;
-//        let thing = base64
-//        try{
-//        console.log(1)
-//        console.log(thing)
-//        let response = await axios.post("https://0.0.0.0:5000/video_player",{picture:thing},headers)
-//
-//        console.log(response);
-//        }catch (error) {
-//          console.log(error);
-//        }
-//
+
 
   return (
-    <View style={styles.container}>
-      <Camera style = {styles.camera} type={type} ratio = {"16:9"}
-      ref={cameraRef}
-      >
-      <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  style={styles.button}
-                  disabled = {disableCalibration}
-                  onPress={async () => {
-                  await sound.loadAsync(require('../assets/sounds/alarm.mp3'))
-                  setDisable(!disableCalibration);
-                  record = true
-                  if (cameraRef) {
-                     while(record){
-                       
-                     await cameraRef.current.takePictureAsync({onPictureSaved: onPictureSaved,base64: true}).
-                     catch(function(err) {
-                       console.log(err);
-                     });
+             <View style={styles.container}>
+               <Camera style = {styles.camera} type={type} ratio = {"16:9"}
+               ref={cameraRef}
+               >
+               <View style={styles.buttonContainer}>
+                         <TouchableOpacity
+                           style={styles.button}
+                           onPress={async () => {
+                           showMessage({
+                                                                        message: "Recording in progress",
+                                                                           description: "Please do not click the start button again",
+                                                                           type: "warning",
+                                                                           })
+                             sound.loadAsync(require('../assets/sounds/alarm.mp3'));
+                             record = !record
 
-                     setTimeout(() => {},500);
-                     
-                    }
-                  }
-                  }}>
-                  <Text style={styles.text}> Start </Text>
-                </TouchableOpacity>
+                             record = true;
+                             while(record){
+                              if(cameraRef) {
+                              await cameraRef.current.takePictureAsync({ onPictureSaved: onPictureSaved, base64: true}).
+                              catch(function(err) {
+                                console.log(err);
+                              });
 
-                <TouchableOpacity
-                style={styles.button}
-                disabled = {!disableCalibration}
-                onPress={() => {
-                  setDisable(!disableCalibration)
-                  record = false;
-                  sound.unloadAsync();
-                }}>
-                  <Text style={styles.text}>Stop</Text>
-                </TouchableOpacity>
-              </View>
-      </Camera>
-    </View>
-  );
-}
+                              setTimeout(() => {},500);
+                             }
+                           }
+                           }}>
+                           <Text style={styles.text}> Calibrate </Text>
+                         </TouchableOpacity>
+
+                         <TouchableOpacity style={styles.button}
+                         onPress={() => {
+                           record = false;
+                           sound.unloadAsync();
+                         }}>
+                           <Text>STOP</Text>
+                         </TouchableOpacity>
+
+                         <TouchableOpacity style={styles.button} onPress={() => {
+                                                           playSound();
+                                                         }}>
+                                                           <Text>playSound</Text>
+                                                         </TouchableOpacity>
+                       </View>
+               </Camera>
+             </View>
+           );
+         }
+
+
+
+
+
+//                  setDisable(!disableCalibration);
+//                  record = true
+//                  if (cameraRef) {
+//                     while(record){
+//
+//                     await cameraRef.current.takePictureAsync({onPictureSaved: onPictureSaved,base64: true}).
+//                     catch(function(err) {
+//                       console.log(err);
+//                     });
+//
+//                     setTimeout(() => {},500);
+//
+//                    }
+//                  }
+//                  }}>
+//                  <Text style={styles.text}> Start </Text>
+//                </TouchableOpacity>
+//
+//                <TouchableOpacity
+//                style={styles.button}
+//                disabled = {!disableCalibration}
+//                onPress={() => {
+//                  sound.unloadAsync();
+//                  setDisable(!disableCalibration)
+//                  record = false;
+//                }}>
+//                  <Text style={styles.text}>Stop</Text>
+//                </TouchableOpacity>
+//
+//                <TouchableOpacity style={styles.button} onPress={() => {
+//                                                                  playSound();
+//                                                                }}>
+//                                                                  <Text>playSound</Text>
+//                                                                </TouchableOpacity>
+//
+//              </View>
+//      </Camera>
+//    </View>
+//  );
+//}
 
 
 

@@ -22,7 +22,6 @@ const axios = require('axios').default;
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
-  const [disableCalibration, setDisable] = useState(false);
   let record = false;
   const sound = new Audio.Sound();
   const cameraRef = useRef(null)
@@ -30,7 +29,6 @@ export default function App() {
 
     async function playSound() {
       await sound.playAsync();
-      console.log('play song');
       }
 
   useEffect(() => {
@@ -54,17 +52,11 @@ export default function App() {
 
 
   const onPictureSaved = photo => {
-            axios.post("https://glacial-springs-53214.herokuapp.com/video_player", {picture: photo})
-            .then (function (response) {
-            if (response.data === "yes") {
-                playSound()
-            };
-            })
-            .catch(function (error) {
-            })
-            }
+        let {base64} = photo;
 
 
+        console.log('success');
+    }
   return (
     <View style={styles.container}>
       <Camera style = {styles.camera} type={type} ratio = {"16:9"}
@@ -73,13 +65,14 @@ export default function App() {
       <View style={styles.buttonContainer}>
                 <TouchableOpacity
                   style={styles.button}
-                  disabled = {disableCalibration}
                   onPress={async () => {
-                  await sound.loadAsync(require('../assets/sounds/alarm.mp3'));
-                  setDisable(!disableCalibration);
-                  console.log(disableCalibration)
-                  record = !record
-
+                    sound.loadAsync(require('../assets/sounds/alarm.mp3'));
+                    record = !record
+                    showMessage({
+                                             message: "Recording in progress",
+                                                description: "Please do not click the start button again",
+                                                type: "warning",
+                                                })
                     record = true;
                     while(record){
                      if(cameraRef) {
@@ -88,26 +81,24 @@ export default function App() {
                        console.log(err);
                      });
 
-                     setTimeout(() => {},500);
-
                     }
                   }
-
                   }}>
-
                   <Text style={styles.text}> Calibrate </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                style={styles.button}
-                disabled = {!disableCalibration}
-                onPress={() => {
-                  setDisable(!disableCalibration)
+                <TouchableOpacity style={styles.button} onPress={() => {
                   record = false;
-                  sound.unloadAsync()
+                  sound.unloadAsync();
                 }}>
                   <Text>STOP</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity style={styles.button} onPress={() => {
+                                                  playSound();
+                                                }}>
+                                                  <Text>playSound</Text>
+                                                </TouchableOpacity>
               </View>
       </Camera>
     </View>
@@ -118,7 +109,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#222831",
+    backgroundColor: "#c0d4ff",
   },
   camera: {
     width: Dimensions.get('window').width,
