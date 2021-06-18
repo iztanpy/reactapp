@@ -11,6 +11,8 @@ import signUpScreen from './components/signUpScreen';
 import cameraScreen from './components/cameraScreen';
 import tempHomeScreen from './components/tempHomeScreen';
 import tempForgetScreen from './components/tempForgetScreen';
+import sleepDetector from './components/sleepDetector';
+import Calibration from './components/Calibration';
 
 import FlashMessage from "react-native-flash-message";
 
@@ -23,7 +25,8 @@ function loggedInTabs() {
     return (
     <Drawer.Navigator drawerStyle = {styles.drawer} overlayColor="transparent">
           <Drawer.Screen name= "Home" component={tempHomeScreen} />
-          <Drawer.Screen name= "camera" component={cameraScreen} options={{unmountOnBlur: true}}/>
+          <Drawer.Screen name= "camera" component={sleepDetector} options={{unmountOnBlur: true}}/>
+          <Drawer.Screen name= "calibration" component={Calibration} options={{unmountOnBlur: true}}/>
         </Drawer.Navigator>
         );
         }

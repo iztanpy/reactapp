@@ -66,7 +66,8 @@ export default function tempHomeScreen({ navigation }) {
 
         <TouchableOpacity
                       style={styles.button}
-                      >
+                      onPress = { () => navigation.navigate('calibration')
+                                                        }>
                         <Text style = {styles.text} >Calibrate</Text>
                       </TouchableOpacity>
 
