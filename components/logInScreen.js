@@ -60,7 +60,7 @@ export default function loginScreen({ navigation }) {
 
       <TouchableOpacity
         onPress = { () =>
-                    setIcon(true)
+                    navigation.navigate("signup")
                  }>
         <Text style={styles.signUp_button}>Sign up</Text>
       </TouchableOpacity>

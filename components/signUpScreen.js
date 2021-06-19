@@ -24,7 +24,6 @@ export default function signupScreen({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require("../assets/favicon.png")} />
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
@@ -82,11 +81,10 @@ export default function signupScreen({navigation}) {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#30475E",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -96,12 +94,11 @@ const styles = StyleSheet.create({
   },
 
   inputView: {
-    backgroundColor: "#c0d4ff",
+    backgroundColor: "#DDDDDD",
     borderRadius: 30,
     width: "70%",
     height: 45,
     marginBottom: 20,
-
     alignItems: "flex-start",
   },
 
@@ -120,7 +117,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    backgroundColor: "#14b9ff",
+    backgroundColor: "#F05454",
   },
+
+  image: {
+  height: 130,
+  width: 230,
+  marginBottom: 30,
+  }
 });
 
