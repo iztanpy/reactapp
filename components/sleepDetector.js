@@ -40,8 +40,8 @@ export default function SleepDetector({route, navigation}) {
   .then(function(response){item = parseFloat(response.data);
   console.log(item);})
   .catch(function(error) {})
-  
-  
+
+  sound.loadAsync(require('../assets/sounds/alarm.mp3'));
 
   useEffect(() => {
     (async () => {
@@ -65,6 +65,7 @@ export default function SleepDetector({route, navigation}) {
               console.log('yes');
           }
           else{
+            playSound()
             console.log(response.data);
           };}
           )
@@ -88,7 +89,6 @@ export default function SleepDetector({route, navigation}) {
                                                                            description: "Please do not click the start button again",
                                                                            type: "warning",
                                                                            })
-                             sound.loadAsync(require('../assets/sounds/alarm.mp3'));
                              record = !record
 
                              record = true;
@@ -99,7 +99,7 @@ export default function SleepDetector({route, navigation}) {
                                 console.log(err);
                               });
 
-                              setTimeout(() => {},500);
+//                              setTimeout(() => {},500);
                              }
                            }
                            }}>
@@ -109,7 +109,6 @@ export default function SleepDetector({route, navigation}) {
                          <TouchableOpacity style={styles.button}
                          onPress={() => {
                            record = false;
-                           sound.unloadAsync();
                          }}>
                            <Text>STOP</Text>
                          </TouchableOpacity>

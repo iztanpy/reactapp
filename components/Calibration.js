@@ -10,19 +10,20 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-
-
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { Camera } from 'expo-camera';
 import { showMessage } from "react-native-flash-message";
 
 
 const axios = require('axios').default;
 
-export default function Calibration(props) {
+export default function Calibration({route, navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const cameraRef = useRef(null)
+
+  const {name} = route.params;
   
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export default function Calibration(props) {
 
   const onPictureSaved = photo => {
           axios.post("https://glacial-springs-53214.herokuapp.com/calibration", {picture: photo,
-        name: props.name,
+        name: name,
     final:'false'})
           .then (function (response) {
           console.log(response.data);}
@@ -51,7 +52,7 @@ export default function Calibration(props) {
           }
 
     const finalPicture = photo => {
-        axios.post("https://glacial-springs-53214.herokuapp.com/calibration",{picture:photo, name: props.name,final:'true'}).then(function(response) {
+        axios.post("https://glacial-springs-53214.herokuapp.com/calibration",{picture:photo, name:name, final:'true'}).then(function(response) {
             console.log(response.data);
             showMessage({message:"Success! Calibration complete",description:"The app is now tailored specifically for you!" });
         }).catch(function (error) {
@@ -93,10 +94,6 @@ export default function Calibration(props) {
                     .catch(function(err) {
                         console.log(err);
                     });
-
-                    
-
-                    
                   }
                   }}>
                   <Text style={styles.text}> Calibrate </Text>

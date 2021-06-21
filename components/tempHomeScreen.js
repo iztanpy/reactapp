@@ -20,7 +20,6 @@ export default function tempHomeScreen({ route, navigation }) {
 const {name} = route.params;
 //const {username} = route.params;
 //console.log(JSON.stringify(username));
-console.log(name)
 
  React.useEffect(
                 () =>
@@ -64,7 +63,6 @@ console.log(name)
         <TouchableOpacity
               style={styles.button}
               onPress = { () => {
-              console.log(name)
               navigation.navigate('camera',{name: name})
                                   }}>
                 <Text>Start app!</Text>
@@ -72,8 +70,9 @@ console.log(name)
 
         <TouchableOpacity
                       style={styles.button}
-                      onPress = { () => navigation.navigate('calibration', {name: name})
-                                                        }>
+                      onPress = { () => {
+                      navigation.navigate('calibration', {name: name})
+                                                        }}>
                         <Text>Calibrate</Text>
                       </TouchableOpacity>
 
