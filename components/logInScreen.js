@@ -69,7 +69,7 @@ export default function loginScreen({ navigation }) {
       <TouchableOpacity
       onPress = {
                     async () =>
-                    axios.post('https://glacial-springs-53214.herokuapp.com/login ',{
+                    axios.post('https://glacial-springs-53214.herokuapp.com/login',{
                     username: username,
                     password: password
                     })
