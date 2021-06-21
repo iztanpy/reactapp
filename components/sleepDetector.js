@@ -19,7 +19,8 @@ import { showMessage, hideMessage } from "react-native-flash-message";
 
 const axios = require('axios').default;
 
-export default function SleepDetector(props) {
+export default function SleepDetector({route, navigation}) {
+
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const [disableCalibration, setDisable] = useState(false);
@@ -27,12 +28,15 @@ export default function SleepDetector(props) {
   const sound = new Audio.Sound();
   let record = false;
 
+  const {name} = route.params;
+
     async function playSound() {
       await sound.playAsync();
       }
 
   let item;
-  axios.post('https://glacial-springs-53214.herokuapp.com/get_value',{name:props.name})
+  axios.post('http://0.0.0.0:5000/get_value',{name:name})
+
   .then(function(response){item = parseFloat(response.data);
   console.log(item);})
   .catch(function(error) {})
@@ -61,7 +65,7 @@ export default function SleepDetector(props) {
               console.log('yes');
           }
           else{
-            console.log('no');
+            console.log(response.data);
           };}
           )
           .catch(function (error) {

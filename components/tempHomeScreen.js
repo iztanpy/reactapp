@@ -15,8 +15,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import FlashMessage from "react-native-flash-message";
 
 
-export default function tempHomeScreen({ navigation }) {
+export default function tempHomeScreen({ route, navigation }) {
 
+const {name} = route.params;
+//const {username} = route.params;
+//console.log(JSON.stringify(username));
+console.log(name)
 
  React.useEffect(
                 () =>
@@ -51,7 +55,7 @@ export default function tempHomeScreen({ navigation }) {
 
         <View style = {styles.content}>
 
-                    <Text> Hi welcome to the app menu!
+                    <Text style = {styles.text}> Hi {JSON.stringify(name)} !
                     You can click the menu button on the top left to access all the features of the application,
                     or click the button below to launch the app!
                     </Text>
@@ -59,16 +63,18 @@ export default function tempHomeScreen({ navigation }) {
 
         <TouchableOpacity
               style={styles.button}
-              onPress = { () => navigation.navigate('camera')
-                                  }>
-                <Text style = {styles.text} >Start app!</Text>
+              onPress = { () => {
+              console.log(name)
+              navigation.navigate('camera',{name: name})
+                                  }}>
+                <Text>Start app!</Text>
               </TouchableOpacity>
 
         <TouchableOpacity
                       style={styles.button}
-                      onPress = { () => navigation.navigate('calibration')
+                      onPress = { () => navigation.navigate('calibration', {name: name})
                                                         }>
-                        <Text style = {styles.text} >Calibrate</Text>
+                        <Text>Calibrate</Text>
                       </TouchableOpacity>
 
 
@@ -120,5 +126,11 @@ const styles = StyleSheet.create({
     marginTop: 40,
     backgroundColor: "#F05454",
     },
+
+  text: {
+  color : "white",
+  fontSize: 20,
+
+  }
 
   })

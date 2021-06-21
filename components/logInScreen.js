@@ -80,7 +80,8 @@ export default function loginScreen({ navigation }) {
                           description: "You have been logged in successfully",
                           type: "success",
                                           })
-                      navigation.navigate("Logged In");
+
+                      navigation.navigate("Logged In", {screen: 'Home', params: {name: username},});
                       }
 
                       else if(response.data === "incorrect password") {
