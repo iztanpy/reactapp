@@ -25,14 +25,12 @@ export default function SleepDetector({route, navigation}) {
   const [type, setType] = useState(Camera.Constants.Type.front);
   const [disableCalibration, setDisable] = useState(false);
   const cameraRef = useRef(null)
-  const sound = new Audio.Sound();
-  let record = false;
+  const [sound, setSound] = React.useState();
+  const [record, setRecord] = useState(false);
 
   const {name} = route.params;
 
-    async function playSound() {
-      await sound.playAsync();
-      }
+
 
   let item;
   axios.post('https://glacial-springs-53214.herokuapp.com/get_value',{name:name})
@@ -41,7 +39,20 @@ export default function SleepDetector({route, navigation}) {
   console.log(item);})
   .catch(function(error) {})
 
-  sound.loadAsync(require('../assets/sounds/alarm.mp3'));
+  async function playSound() {
+        const { sound } = await Audio.Sound.createAsync(
+           require('../assets/sounds/alarm2.mp3')
+        );
+        setSound(sound);
+        await sound.playAsync();
+        };
+
+  React.useEffect(() => {
+        return sound
+          ? () => {
+              sound.unloadAsync();}
+          : undefined;
+      }, [sound]);
 
   useEffect(() => {
     (async () => {
@@ -49,6 +60,22 @@ export default function SleepDetector({route, navigation}) {
       setHasPermission(status === 'granted');
     })();
   }, []);
+
+
+
+  useEffect(() => {
+              async function sendData() {
+                while(record){
+                   if(cameraRef) {
+                      await cameraRef.current.takePictureAsync({ onPictureSaved: onPictureSaved, base64: true}).
+                       catch(function(err) {
+                       console.log(err);
+                       });
+                        }
+                   }
+                }
+                sendData();
+                }, [record])
 
   if (hasPermission === null) {
     return <View />;
@@ -61,19 +88,29 @@ export default function SleepDetector({route, navigation}) {
           axios.post("https://glacial-springs-53214.herokuapp.com/video_player", {picture: photo})
           .then (function (response) {
             if (parseFloat(response.data) < item) {
-              playSound()
               console.log('yes');
           }
           else{
-            playSound()
-            console.log(response.data);
+            playSound();
+            console.log(record);
           };}
           )
           .catch(function (error) {
           })
           }
-          
 
+  if (!record) {
+   return <View style={styles.guardContainer}>
+                                                                   <TouchableOpacity
+                                                                     style={styles.guardButton}
+                                                                     onPress={() => {
+                                                                       setRecord(true);
+                                                                       }
+                                                                     }>
+                                                                     <Text style={styles.text}> Start Camera</Text>
+                                                                   </TouchableOpacity>
+                                                                 </View>
+  }
 
   return (
              <View style={styles.container}>
@@ -81,52 +118,38 @@ export default function SleepDetector({route, navigation}) {
                ref={cameraRef}
                >
                <View style={styles.buttonContainer}>
-                         <TouchableOpacity
-                           style={styles.button}
-                           onPress={async () => {
-                           showMessage({
-                                                                        message: "Recording in progress",
-                                                                           description: "Please do not click the start button again",
-                                                                           type: "warning",
-                                                                           })
-                             record = !record
-
-                             record = true;
-                             while(record){
-                              if(cameraRef) {
-                              await cameraRef.current.takePictureAsync({ onPictureSaved: onPictureSaved, base64: true}).
-                              catch(function(err) {
-                                console.log(err);
-                              });
-
-//                              setTimeout(() => {},500);
-                             }
-                           }
-                           }}>
-                           <Text style={styles.text}> Calibrate </Text>
-                         </TouchableOpacity>
-
                          <TouchableOpacity style={styles.button}
-                         onPress={() => {
-                           record = false;
+                            onPress={() => {
+                            setRecord(false);
+                            console.log(record);
                          }}>
-                           <Text>STOP</Text>
+                           <Text style= {styles.text}>STOP</Text>
                          </TouchableOpacity>
-
-                         <TouchableOpacity style={styles.button} onPress={() => {
-                                                           playSound();
-                                                         }}>
-                                                           <Text>playSound</Text>
-                                                         </TouchableOpacity>
                        </View>
                </Camera>
              </View>
            );
          }
 
+//                         <TouchableOpacity style={styles.button} onPress={() => {
+//                                                           playSound();
+//                                                         }}>
+//                                                           <Text>playSound</Text>
+//                                                         </TouchableOpacity>
 
-
-
+//                         <TouchableOpacity
+//                           style={styles.button}
+//                           onPress={() => {
+//                           showMessage({
+//                              message: "Recording in progress",
+//                              description: "Please do not click the start button again",
+//                              type: "warning",
+//                              })
+//                             setRecord(true);
+//                             }
+//                           }>
+//                           <Text style={styles.text}> Calibrate </Text>
+//                         </TouchableOpacity>
 
 //                  setDisable(!disableCalibration);
 //                  record = true
@@ -176,6 +199,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#222831",
   },
+
+  guardContainer: {
+    flex:1,
+    backgroundColor: "#30475E",
+    alignItems: "center",
+    justifyContent: "center",
+
+  },
   camera: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').width*16/9
@@ -197,9 +228,16 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       backgroundColor: "#F05454"
    },
-
-
-
+   guardButton: {
+         borderRadius: 25,
+         width: 150,
+         height: 50,
+         marginTop: 40,
+         alignSelf: 'center',
+         alignItems: 'center',
+         justifyContent: 'center',
+         backgroundColor: "#F05454"
+      },
    text: {
       fontSize: 18,
       color: 'white',
