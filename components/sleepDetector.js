@@ -88,10 +88,10 @@ export default function SleepDetector({route, navigation}) {
           axios.post("https://glacial-springs-53214.herokuapp.com/video_player", {picture: photo})
           .then (function (response) {
             if (parseFloat(response.data) < item) {
+              playSound();
               console.log('yes');
           }
           else{
-            playSound();
             console.log(record);
           };}
           )
