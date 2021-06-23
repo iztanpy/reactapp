@@ -92,6 +92,7 @@ export default function SleepDetector({route, navigation}) {
               console.log('yes');
           }
           else{
+            playSound();
             console.log(record);
           };}
           )
@@ -124,6 +125,12 @@ export default function SleepDetector({route, navigation}) {
                             console.log(record);
                          }}>
                            <Text style= {styles.text}>STOP</Text>
+                         </TouchableOpacity>
+
+                         <TouchableOpacity style={styles.button} onPress={() => {
+                               playSound();
+                               }}>
+                               <Text>playSound</Text>
                          </TouchableOpacity>
                        </View>
                </Camera>
