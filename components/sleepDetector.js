@@ -30,15 +30,15 @@ export default function SleepDetector({route, navigation}) {
   const [record, setRecord] = useState(false);
 
   const {name} = route.params;
-  const item = 0.32;
+  
 
 
-  //let item;
-  //axios.post('https://glacial-springs-53214.herokuapp.com/get_value',{name:name})
+  let item;
+  axios.post('https://glacial-springs-53214.herokuapp.com/get_value',{name:name})
 
-  //.then(function(response){item = parseFloat(response.data);
-  //console.log(item);})
-  //.catch(function(error) {})
+  .then(function(response){item = parseFloat(response.data);
+  console.log(item);})
+  .catch(function(error) {})
 
   async function playSound() {
         const { sound } = await Audio.Sound.createAsync(
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
 
   guardContainer: {
     flex:1,
-    backgroundColor: "#30475E",
+    backgroundColor: "#1abc9c",
     alignItems: "center",
     justifyContent: "center",
 

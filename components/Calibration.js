@@ -45,6 +45,8 @@ export default function Calibration({route, navigation}) {
         name: name,
     final:'false'})
           .then (function (response) {
+          console.log('in progress')
+          console.log(name)
           console.log(response.data);}
           )
           .catch(function (error) {
@@ -74,8 +76,11 @@ export default function Calibration({route, navigation}) {
                   if (cameraRef) {
 
                     await axios.post("https://glacial-springs-53214.herokuapp.com/clear",{}).then(function (response){
+                      console.log('cleared')
                       console.log(response.data)
-                    }).catch(function(err) {})
+                    }).catch(function(err) {
+                      console.log(err)
+                    })
                     setTimeout(() => {}, 2000)
                     var curr = Date.now()  
                      while(Date.now() - curr < 15000){
@@ -92,6 +97,7 @@ export default function Calibration({route, navigation}) {
                       
                     })
                     .catch(function(err) {
+                      console.log('in final loop');
                         console.log(err);
                     });
                   }
