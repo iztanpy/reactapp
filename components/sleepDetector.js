@@ -128,6 +128,12 @@ export default function SleepDetector({route, navigation}) {
                          }}>
                            <Text style= {styles.text}>STOP</Text>
                          </TouchableOpacity>
+
+                         <TouchableOpacity style={styles.button} onPress={() => {
+                               playSound();
+                               }}>
+                               <Text>playSound</Text>
+                         </TouchableOpacity>
                        </View>
                </Camera>
              </View>
