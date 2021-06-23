@@ -30,15 +30,15 @@ export default function SleepDetector({route, navigation}) {
   const [record, setRecord] = useState(false);
 
   const {name} = route.params;
+  const item = 0.32;
 
 
+  //let item;
+  //axios.post('https://glacial-springs-53214.herokuapp.com/get_value',{name:name})
 
-  let item;
-  axios.post('https://glacial-springs-53214.herokuapp.com/get_value',{name:name})
-
-  .then(function(response){item = parseFloat(response.data);
-  console.log(item);})
-  .catch(function(error) {})
+  //.then(function(response){item = parseFloat(response.data);
+  //console.log(item);})
+  //.catch(function(error) {})
 
   async function playSound() {
         const { sound } = await Audio.Sound.createAsync(
@@ -89,10 +89,12 @@ export default function SleepDetector({route, navigation}) {
           axios.post("https://glacial-springs-53214.herokuapp.com/video_player", {picture: photo})
           .then (function (response) {
             if (parseFloat(response.data) < item) {
-              playSound();
               console.log('yes');
+              
+              
           }
           else{
+            playSound();
             console.log(record);
           };}
           )
