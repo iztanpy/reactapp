@@ -23,7 +23,8 @@ const axios = require('axios').default;
 
 
 export default function loginScreen({ navigation }) {
-  const [username, setEmail] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUser] = useState("");
   const [password, setPassword] = useState("");
   const[iconAnimating, setIcon] = useState(false);
 
@@ -32,14 +33,15 @@ export default function loginScreen({ navigation }) {
     <View style={styles.container}>
     <Image style={styles.image} source={require("../assets/logo2.png")} />
       <StatusBar style="auto" />
+
       <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Email..."
-          placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
-        />
-      </View>
+              <TextInput
+                style={styles.TextInput}
+                placeholder="Username..."
+                placeholderTextColor="#003f5c"
+                onChangeText={(username) => setUser(username)}
+              />
+            </View>
 
       <View style={styles.inputView}>
         <TextInput
@@ -89,7 +91,7 @@ export default function loginScreen({ navigation }) {
                          message: "Incorrect password!",
                             description: "Click on this message to proceed to reset password",
                             type: "warning",
-                            onPress : () => {navigation.navigate("tempForget")}
+                            onPress : () => {navigation.navigate("tempForget"), {name: username} }
                       })
                       }
 
@@ -108,7 +110,7 @@ export default function loginScreen({ navigation }) {
                                     })}
       style={styles.loginBtn}
       >
-        <Text style={styles.loginText}>LOGIN</Text>
+        <Text>LOGIN</Text>
       </TouchableOpacity>
     </View>
   );

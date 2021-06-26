@@ -19,7 +19,8 @@ const axios = require('axios').default;
 
 
 export default function signupScreen({navigation}) {
-  const [username, setEmail] = useState("");
+  const [username, setUser] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
@@ -28,11 +29,20 @@ export default function signupScreen({navigation}) {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Email..."
+          placeholder="Username..."
           placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(username) => setUser(username)}
         />
       </View>
+
+      <View style={styles.inputView}>
+              <TextInput
+                style={styles.TextInput}
+                placeholder="Email..."
+                placeholderTextColor="#003f5c"
+                onChangeText={(email) => setEmail(email)}
+              />
+            </View>
 
       <View style={styles.inputView}>
         <TextInput
@@ -47,9 +57,10 @@ export default function signupScreen({navigation}) {
       <TouchableOpacity
       onPress = {
               async () =>
-              axios.post('https://glacial-springs-53214.herokuapp.com//processing',{
+              axios.post('https://glacial-springs-53214.herokuapp.com/processing',{
               username: username,
-              password: password
+              password: password,
+              email: email,
               })
               .then(function (response) {
                   if (response.data === "success") {
