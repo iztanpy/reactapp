@@ -43,19 +43,8 @@ const {name} = route.params;
     return (
 
         <View style={styles.container}>
-        <View style={styles.Menu}>
-                    <TouchableOpacity activeOpacity = { .5 } onPress={ () => navigation.openDrawer()}>
-                    <Image
-                    style={styles.image}
-                    source={require("../assets/tempmenu2.png")}
-                    />
-                    </TouchableOpacity>
-        </View>
 
-        <View style = {styles.content}>
-
-                    <Image style = {styles.bigLogo} source={require("../assets/logo.png")}> 
-                    </Image>
+        <Image style = {styles.bigLogo} source={require("../assets/logo2.png")} />
 
         <TouchableOpacity style = {styles.button}
           onPress = {() => {
@@ -82,13 +71,18 @@ const {name} = route.params;
 
 
         </View>
-
-
-        </View>
-
         );
 
 }
+
+//        <View style={styles.Menu}>
+//                    <TouchableOpacity activeOpacity = { .5 } onPress={ () => navigation.openDrawer()}>
+//                    <Image
+//                    style={styles.image}
+//                    source={require("../assets/tempmenu2.png")}
+//                    />
+//                    </TouchableOpacity>
+//        </View>
 
 
 const styles = StyleSheet.create({
@@ -108,22 +102,18 @@ const styles = StyleSheet.create({
     width: 250,
     height: 250,
   },
-  bigLogo: {
-    width:300,
-    height:420
 
-  },
+  bigLogo: {
+      height: 200,
+      width: 350,
+      marginBottom: 30,
+      },
 
   content :{
-  flex: 3,
+
   alignItems: "center",
   padding: 10,
   },
-
-  image: {
-    width: 100,
-    height: 100
-   },
 
   button: {
     width: 150,

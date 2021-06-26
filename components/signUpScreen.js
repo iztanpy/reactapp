@@ -69,7 +69,7 @@ export default function signupScreen({navigation}) {
       onPress = {
               async () => {
               if (password === cnfmPassword) {
-              axios.post('https://glacial-springs-53214.herokuapp.com//processing',{
+              axios.post('https://glacial-springs-53214.herokuapp.com/processing',{
               username: username,
               password: password,
               email: email,

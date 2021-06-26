@@ -22,16 +22,16 @@ const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 
-function loggedInTabs() {
-    return (
-    <Drawer.Navigator drawerStyle = {styles.drawer} overlayColor="transparent">
-          <Drawer.Screen name= "Home" component={tempHomeScreen} />
-          <Drawer.Screen name= "camera" component={sleepDetector} options={{unmountOnBlur: true}}/>
-          <Drawer.Screen name= "calibration" component={Calibration} options={{unmountOnBlur: true}}/>
-          <Drawer.Screen name = "tutorial" component={Tutorial} options={{unmountOnBlur: true}}/>
-        </Drawer.Navigator>
-        );
-        }
+//function loggedInTabs() {
+//    return (
+//    <Drawer.Navigator drawerStyle = {styles.drawer} overlayColor="transparent">
+//          <Drawer.Screen name= "Home" component={tempHomeScreen} />
+//          <Drawer.Screen name= "camera" component={sleepDetector} options={{unmountOnBlur: true}}/>
+//          <Drawer.Screen name= "calibration" component={Calibration} options={{unmountOnBlur: true}}/>
+//          <Drawer.Screen name = "tutorial" component={Tutorial} options={{unmountOnBlur: true}}/>
+//        </Drawer.Navigator>
+//        );
+//        }
 
 export default function App() {
     return (
@@ -50,9 +50,11 @@ export default function App() {
                }}>
               <Stack.Screen name="login" component={logInScreen} />
               <Stack.Screen name="signup" component={signUpScreen} />
-              <Stack.Screen name="Logged In" component={loggedInTabs}
-               options = {{}}/>
               <Stack.Screen name="tempForget" component={tempForgetScreen} />
+              <Stack.Screen name= "Home" component={tempHomeScreen} />
+              <Stack.Screen name= "camera" component={sleepDetector} options={{unmountOnBlur: true}}/>
+              <Stack.Screen name= "calibration" component={Calibration} options={{unmountOnBlur: true}}/>
+              <Stack.Screen name = "tutorial" component={Tutorial} options={{unmountOnBlur: true}}/>
             </Stack.Navigator>
           </NavigationContainer>
           <FlashMessage position="top" />
