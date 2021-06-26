@@ -1,3 +1,4 @@
+
 import { StatusBar } from "expo-status-bar";
 import React, { useState,useEffect,useRef } from "react";
 import {
@@ -29,7 +30,7 @@ export default function SleepDetector({route, navigation}) {
   const [record, setRecord] = useState(false);
 
   const {name} = route.params;
-
+  
 
 
   let item;
@@ -88,8 +89,9 @@ export default function SleepDetector({route, navigation}) {
           axios.post("https://glacial-springs-53214.herokuapp.com/video_player", {picture: photo})
           .then (function (response) {
             if (parseFloat(response.data) < item) {
-              playSound();
               console.log('yes');
+              
+              
           }
           else{
             playSound();
@@ -209,7 +211,7 @@ const styles = StyleSheet.create({
 
   guardContainer: {
     flex:1,
-    backgroundColor: "#30475E",
+    backgroundColor: "#1abc9c",
     alignItems: "center",
     justifyContent: "center",
 
@@ -249,5 +251,6 @@ const styles = StyleSheet.create({
       fontSize: 18,
       color: 'white',
    },
+
 
 })

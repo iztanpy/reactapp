@@ -22,6 +22,7 @@ export default function signupScreen({navigation}) {
   const [username, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [cnfmPassword,setCnfmPassword] = useState("");
 
   return (
     <View style={styles.container}>
@@ -54,10 +55,21 @@ export default function signupScreen({navigation}) {
         />
       </View>
 
+      <View style={styles.inputView}>
+        <TextInput
+        style={styles.TextInput}
+        placeholder="Confirm Password..."
+        placeholderTextColor="#003f5c"
+        secureTextEntry={true}
+        onChangeText={(cnfmPassword) => setCnfmPassword(cnfmPassword)}
+      />
+      </View>
+
       <TouchableOpacity
       onPress = {
-              async () =>
-              axios.post('https://glacial-springs-53214.herokuapp.com/processing',{
+              async () => {
+              if (password === cnfmPassword) {
+              axios.post('https://glacial-springs-53214.herokuapp.com//processing',{
               username: username,
               password: password,
               email: email,
@@ -81,10 +93,23 @@ export default function signupScreen({navigation}) {
                         type: "failure",
 
                   })}
-                  })
+                  }
+                )
               .catch(function (error) {
               console.log(error);
               })}
+              else {
+                showMessage({
+                  message: "Error ",
+                  description: "The passwords you entered do not match. Please try again",
+                  type: "failure",
+
+            })
+
+              }
+            }
+            
+            }
               style={styles.signupBtn}
               >
         <Text>Sign Up</Text>
@@ -95,7 +120,7 @@ export default function signupScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#30475E",
+    backgroundColor: "#1abc9c",
     alignItems: "center",
     justifyContent: "center",
   },
