@@ -13,6 +13,7 @@ import tempHomeScreen from './components/tempHomeScreen';
 import tempForgetScreen from './components/tempForgetScreen';
 import sleepDetector from './components/sleepDetector';
 import Calibration from './components/Calibration';
+import Tutorial from './components/Tutorial'
 
 import FlashMessage from "react-native-flash-message";
 
@@ -27,6 +28,7 @@ function loggedInTabs() {
           <Drawer.Screen name= "Home" component={tempHomeScreen} />
           <Drawer.Screen name= "camera" component={sleepDetector} options={{unmountOnBlur: true}}/>
           <Drawer.Screen name= "calibration" component={Calibration} options={{unmountOnBlur: true}}/>
+          <Drawer.Screen name = "tutorial" component={Tutorial} options={{unmountOnBlur: true}}/>
         </Drawer.Navigator>
         );
         }

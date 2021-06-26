@@ -54,12 +54,16 @@ const {name} = route.params;
 
         <View style = {styles.content}>
 
-                    <Text style = {styles.text}> Hi {JSON.stringify(name)} !
-                    You can click the menu button on the top left to access all the features of the application,
-                    or click the button below to launch the app!
-                    </Text>
+                    <Image style = {styles.bigLogo} source={require("../assets/logo.png")}> 
+                    </Image>
 
-
+        <TouchableOpacity style = {styles.button}
+          onPress = {() => {
+            navigation.navigate('tutorial',{name:name})
+          }}>
+          
+          <Text>Tutorial</Text>
+        </TouchableOpacity>
         <TouchableOpacity
               style={styles.button}
               onPress = { () => {
@@ -91,7 +95,7 @@ const styles = StyleSheet.create({
   container: {
       flex: 1,
       backgroundColor: "#1abc9c",
-      alignItems: "flex-start",
+      alignItems: "center",
       justifyContent: "center",
     },
 
@@ -104,11 +108,16 @@ const styles = StyleSheet.create({
     width: 250,
     height: 250,
   },
+  bigLogo: {
+    width:300,
+    height:420
+
+  },
 
   content :{
   flex: 3,
   alignItems: "center",
-  padding: 30,
+  padding: 10,
   },
 
   image: {
@@ -122,7 +131,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    marginTop: 20,
     backgroundColor: "#F05454",
     },
 
