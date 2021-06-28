@@ -16,6 +16,7 @@ import { Camera } from 'expo-camera';
 import { showMessage } from "react-native-flash-message";
 
 
+
 const axios = require('axios').default;
 
 export default function Calibration({route, navigation}) {
@@ -24,6 +25,9 @@ export default function Calibration({route, navigation}) {
   const cameraRef = useRef(null)
 
   const {name} = route.params;
+  
+
+  
   
 
   useEffect(() => {
@@ -41,6 +45,7 @@ export default function Calibration({route, navigation}) {
   }
 
   const onPictureSaved = photo => {
+          
           axios.post("https://glacial-springs-53214.herokuapp.com/calibration", {picture: photo,
         name: name,
     final:'false'})
@@ -54,6 +59,7 @@ export default function Calibration({route, navigation}) {
           }
 
     const finalPicture = photo => {
+      setTimeout(() => {},800);
         axios.post("https://glacial-springs-53214.herokuapp.com/calibration",{picture:photo, name:name, final:'true'}).then(function(response) {
             console.log(response.data);
             showMessage({message:"Success! Calibration complete",description:"The app is now tailored specifically for you!" });
@@ -71,7 +77,7 @@ export default function Calibration({route, navigation}) {
                 <TouchableOpacity
                   style={styles.button}
                   onPress={async () => {
-                  showMessage({message:"Calibration starting",description:"Please hold still for 15 seconds :)", type: "warning"})
+                  showMessage({message:"Calibration starting",description:"Please hold still for about 30 seconds :)", type: "warning"})
                  
                   if (cameraRef) {
 
@@ -81,27 +87,53 @@ export default function Calibration({route, navigation}) {
                     }).catch(function(err) {
                       console.log(err)
                     })
-                    setTimeout(() => {}, 2000)
-                    var curr = Date.now()  
-                     while(Date.now() - curr < 15000){
-                     await cameraRef.current.takePictureAsync({onPictureSaved: onPictureSaved,base64: true}).
-                     catch(function(err) {
-                       console.log(err);
-                     });
+                    setTimeout(() => {}, 2000);
+                    let i = 0;
+                    function sendData() {
+    
+                
+                      if(cameraRef && i < 14) {
+                        i++;
+                        cameraRef.current.takePictureAsync({ onPictureSaved: onPictureSaved, base64: true}).
+                          catch(function(err) {
+                          console.log(err);
+                          });
+                          setTimeout(() =>{
+                            sendData();
+                          },2000)
+                  
+                      }
+                      else if (cameraRef && i >= 14) {
+                         cameraRef.current.takePictureAsync({onPictureSaved: finalPicture,base64: true})
+                        .then(async function (response){
+                          console.log('done');
+                          
+                        })
+                        .catch(function(err) {
+                          console.log('in final loop');
+                            console.log(err);
+                        });                       
 
-                     setTimeout(() => {},400);
-                     
+                      }
                     }
-                    await cameraRef.current.takePictureAsync({onPictureSaved: finalPicture,base64: true})
-                    .then(async function (response){
-                      
-                    })
-                    .catch(function(err) {
-                      console.log('in final loop');
-                        console.log(err);
-                    });
+                    sendData();
+
+                     //while(Date.now() - curr < 15000){
+                    // await cameraRef.current.takePictureAsync({base64: true})
+                //     .then(function(response) {
+               //        onPictureSaved(response)
+              //       })
+             //        .catch(function(err) {
+            //           console.log(err);
+             //        });
+
+                     
+                     
+                    
+                   
                   }
-                  }}>
+                  }
+                }>
                   <Text style={styles.text}> Calibrate </Text>
                 </TouchableOpacity>
 

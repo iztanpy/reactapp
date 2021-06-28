@@ -13,9 +13,12 @@ import {
 } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import {Video} from 'expo-av';
 
 
 export default function calibrationTutorial({route, navigation}) {
+    const videoRef = useRef(null);
+    const [status,setStatus] = useState({})
 
     return (
         <View style={styles.container}>
@@ -36,6 +39,15 @@ export default function calibrationTutorial({route, navigation}) {
                 3. Next simulate being drowsy for 15 seconds.There will be a notification when the calibration is done. Note that you should not just close your eyes for the entirety of the duration otherwise the app may not be very sensitive to you falling asleep on the road! A suggestion of how you should simulate being drowsy is shown below. Note that you may calibrate in a manner that is representative of how your eyes would be when you begin to fall asleep! 
             </Text>
 
+            <Video source = {require('../assets/calibrationDemo.mp4')}
+            ref = {videoRef}
+            useNativeControls
+            resizeMode='contain'
+            isLooping
+            onPlaybackStatusUpdate = {status => setStatus(() => status)}
+            style = {styles.video}
+            ></Video>
+
 
         </ScrollView>
         </View>
@@ -55,6 +67,10 @@ const styles = StyleSheet.create({
     image:{
         height:150,
         width:150
+    },
+    video:{
+        height:200,
+        width:200
     }
 
 })

@@ -79,7 +79,9 @@ export default function App() {
                      await cameraRef.current.takePictureAsync({ onPictureSaved: onPictureSaved, base64: true}).
                      catch(function(err) {
                        console.log(err);
-                     });
+
+                     })
+                     ;
 
                     }
                   }
@@ -109,7 +111,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#c0d4ff",
+    backgroundColor: "#1abc9c",
   },
   camera: {
     width: Dimensions.get('window').width,

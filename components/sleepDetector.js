@@ -66,17 +66,37 @@ export default function SleepDetector({route, navigation}) {
 
   useEffect(() => {
               async function sendData() {
-                while(record){
-                   if(cameraRef) {
-                      await cameraRef.current.takePictureAsync({ onPictureSaved: onPictureSaved, base64: true}).
-                       catch(function(err) {
-                       console.log(err);
-                       });
-                        }
-                   }
+                
+                if(cameraRef && record) {
+                  await cameraRef.current.takePictureAsync({ onPictureSaved: onPictureSaved, base64: true}).
+                    catch(function(err) {
+                    console.log(err);
+                    });
+                    setTimeout(() =>{
+                      sendData();
+                    },2000)
+
                 }
-                sendData();
-                }, [record])
+                
+              }
+              sendData();
+             }, [record]);
+
+               // while(record){
+              //     if(cameraRef) {
+             //       await cameraRef.current.takePictureAsync({ onPictureSaved: onPictureSaved, base64: true}).
+              //      catch(function(err) {
+              //      console.log(err);
+              //      });
+                      
+              //         setTimeout(() => {
+                        
+                //       },800)
+                  //      }
+                //   }
+                //}
+               
+                 
 
   if (hasPermission === null) {
     return <View />;
@@ -85,16 +105,18 @@ export default function SleepDetector({route, navigation}) {
     return <Text>No access to camera</Text>;
   }
 
-  const onPictureSaved = photo => {
-          axios.post("https://glacial-springs-53214.herokuapp.com/video_player", {picture: photo})
+  const onPictureSaved =async (photo) => {
+          await axios.post("https://glacial-springs-53214.herokuapp.com/video_player", {picture: photo})
           .then (function (response) {
             if (parseFloat(response.data) < item) {
+              console.log(response.data)
               console.log('yes');
+              playSound();
               
               
           }
           else{
-            playSound();
+            console.log(response.data);            
             console.log(record);
           };}
           )
