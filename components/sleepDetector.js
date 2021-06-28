@@ -74,7 +74,7 @@ export default function SleepDetector({route, navigation}) {
                     });
                     setTimeout(() =>{
                       sendData();
-                    },2000)
+                    },2300)
 
                 }
                 

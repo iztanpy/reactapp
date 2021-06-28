@@ -87,7 +87,7 @@ export default function Calibration({route, navigation}) {
                     }).catch(function(err) {
                       console.log(err)
                     })
-                    setTimeout(() => {}, 2000);
+                    setTimeout(() => {}, 2300);
                     let i = 0;
                     function sendData() {
     

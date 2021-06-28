@@ -22,4 +22,6 @@ git pull origin main
 
 Once downloaded, open the a terminal and run npm start or yarn start and scan the generated QR code using your mobile device.
 
+Do open up the following link before to facilitate a faster initial link: https://glacial-springs-53214.herokuapp.com/.
+
 Enjoy! If there are issues do feel free to post on the issue page/give us your feedback. Thank you!

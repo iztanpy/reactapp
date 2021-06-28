@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "my_project",
-    "slug": "my_project",
+    "name": "Stay awake stay safe",
+    "slug": "stay-awake-stay-safe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
