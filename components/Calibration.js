@@ -23,8 +23,10 @@ export default function Calibration({route, navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const cameraRef = useRef(null)
-
+  const [sound, setSound] = React.useState()
   const {name} = route.params;
+
+
   
 
   
@@ -59,7 +61,7 @@ export default function Calibration({route, navigation}) {
           }
 
     const finalPicture = photo => {
-      setTimeout(() => {},800);
+      
         axios.post("https://glacial-springs-53214.herokuapp.com/calibration/" + name,{picture:photo, name:name, final:'true'}).then(function(response) {
             console.log(response.data);
             showMessage({message:"Success! Calibration complete",description:"The app is now tailored specifically for you!" });
@@ -80,7 +82,7 @@ export default function Calibration({route, navigation}) {
                 <TouchableOpacity
                   style={styles.button}
                   onPress={async () => {
-                  showMessage({message:"Calibration starting",description:"Please hold still for about 30 seconds :)", type: "warning"})
+                  showMessage({message:"Calibration starting",description:"Please keep your eyes open as much as possible for the first 15 seconds!", type: "warning"})
                  
                   if (cameraRef) {
 
@@ -101,6 +103,9 @@ export default function Calibration({route, navigation}) {
                           catch(function(err) {
                           console.log(err);
                           });
+                          if(i===7) {
+                            showMessage({message:"Alert",description:"Please proceed to close your eyes for the remainder of the calibration",type:"warning"})
+                          }
                           setTimeout(() =>{
                             sendData();
                           },2000)
@@ -111,6 +116,7 @@ export default function Calibration({route, navigation}) {
                         .then(async function (response){
                           console.log('done');
                           
+                          
                         })
                         .catch(function(err) {
                           console.log('in final loop');
@@ -120,6 +126,7 @@ export default function Calibration({route, navigation}) {
                       }
                     }
                     sendData();
+                    
 
                      //while(Date.now() - curr < 15000){
                     // await cameraRef.current.takePictureAsync({base64: true})
