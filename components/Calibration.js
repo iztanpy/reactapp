@@ -46,7 +46,7 @@ export default function Calibration({route, navigation}) {
 
   const onPictureSaved = photo => {
           
-          axios.post("https://glacial-springs-53214.herokuapp.com/calibration", {picture: photo,
+          axios.post("https://glacial-springs-53214.herokuapp.com/calibration/" + name, {picture: photo,
         name: name,
     final:'false'})
           .then (function (response) {
@@ -60,9 +60,12 @@ export default function Calibration({route, navigation}) {
 
     const finalPicture = photo => {
       setTimeout(() => {},800);
-        axios.post("https://glacial-springs-53214.herokuapp.com/calibration",{picture:photo, name:name, final:'true'}).then(function(response) {
+        axios.post("https://glacial-springs-53214.herokuapp.com/calibration/" + name,{picture:photo, name:name, final:'true'}).then(function(response) {
             console.log(response.data);
             showMessage({message:"Success! Calibration complete",description:"The app is now tailored specifically for you!" });
+            setTimeout(() => {
+              navigation.navigate("Home",{name:name})
+            },2000)
         }).catch(function (error) {
             console.log(error)
         })
@@ -81,7 +84,7 @@ export default function Calibration({route, navigation}) {
                  
                   if (cameraRef) {
 
-                    await axios.post("https://glacial-springs-53214.herokuapp.com/clear",{}).then(function (response){
+                    await axios.post("https://glacial-springs-53214.herokuapp.com/clear/" + name,{}).then(function (response){
                       console.log('cleared')
                       console.log(response.data)
                     }).catch(function(err) {

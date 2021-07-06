@@ -13,10 +13,4 @@
     console.log('done')
   }
 
-  async function calibrate() {
-    
-    sendData();
-    
-  }
-
-  calibrate()
+  

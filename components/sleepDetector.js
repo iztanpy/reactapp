@@ -106,7 +106,7 @@ export default function SleepDetector({route, navigation}) {
   }
 
   const onPictureSaved =async (photo) => {
-          await axios.post("https://glacial-springs-53214.herokuapp.com/video_player", {picture: photo})
+          await axios.post("https://glacial-springs-53214.herokuapp.com/video_player/" + name, {picture: photo})
           .then (function (response) {
             if (parseFloat(response.data) < item) {
               console.log(response.data)
