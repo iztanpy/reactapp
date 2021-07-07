@@ -48,9 +48,6 @@ export default function App() {
     return <Text>No access to camera</Text>;
   }
 
-
-
-
   const onPictureSaved = photo => {
         let {base64} = photo;
 

@@ -14,22 +14,31 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Camera } from 'expo-camera';
 import { showMessage } from "react-native-flash-message";
-
-
+import { Audio } from 'expo-av';
 
 const axios = require('axios').default;
 
 export default function Calibration({route, navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
-  const cameraRef = useRef(null)
-  const [sound, setSound] = React.useState()
+  const cameraRef = useRef(null);
+  const [sound, setSound] = React.useState();
   const {name} = route.params;
 
+    async function playSound() {
+          const { sound } = await Audio.Sound.createAsync(
+             require('../assets/sounds/alarm2.mp3')
+          );
+          setSound(sound);
+          await sound.playAsync();
+          };
 
-  
-
-  
+    React.useEffect(() => {
+          return sound
+            ? () => {
+                sound.unloadAsync();}
+            : undefined;
+        }, [sound]);
   
 
   useEffect(() => {
@@ -60,10 +69,12 @@ export default function Calibration({route, navigation}) {
           })
           }
 
+
     const finalPicture = photo => {
       
         axios.post("https://glacial-springs-53214.herokuapp.com/calibration/" + name,{picture:photo, name:name, final:'true'}).then(function(response) {
             console.log(response.data);
+            playSound(); 
             showMessage({message:"Success! Calibration complete",description:"The app is now tailored specifically for you!" });
             setTimeout(() => {
               navigation.navigate("Home",{name:name})
@@ -74,18 +85,17 @@ export default function Calibration({route, navigation}) {
     }
 
   return (
-    <View style={styles.container}>
+    < View style={styles.container}>
       <Camera style = {styles.camera} type={type} ratio = {"16:9"}
-      ref={cameraRef}
-      >
+      ref={cameraRef} >
       <View style={styles.buttonContainer}>
                 <TouchableOpacity
                   style={styles.button}
                   onPress={async () => {
                   showMessage({message:"Calibration starting",description:"Please keep your eyes open as much as possible for the first 15 seconds!", type: "warning"})
-                 
-                  if (cameraRef) {
 
+
+                  if (cameraRef) {
                     await axios.post("https://glacial-springs-53214.herokuapp.com/clear/" + name,{}).then(function (response){
                       console.log('cleared')
                       console.log(response.data)
