@@ -74,7 +74,7 @@ export default function Calibration({route, navigation}) {
       
         axios.post("https://glacial-springs-53214.herokuapp.com/calibration/" + name,{picture:photo, name:name, final:'true'}).then(function(response) {
             console.log(response.data);
-            playSound(); 
+            playSound();
             showMessage({message:"Success! Calibration complete",description:"The app is now tailored specifically for you!" });
             setTimeout(() => {
               navigation.navigate("Home",{name:name})
