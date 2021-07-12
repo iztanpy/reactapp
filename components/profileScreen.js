@@ -22,11 +22,29 @@ const axios = require('axios').default;
 
 
 
-export default function profileScreen({ navigation }) {
+export default function loginScreen({route, navigation}) {
+  const {name} = route.params;
   const [email, setEmail] = useState("");
   const [username, setUser] = useState("");
-  const [password, setPassword] = useState("");
-  const[iconAnimating, setIcon] = useState(false);
+  const [nokEmail, setNokEmail] = useState("");
+
+  useEffect(() => {
+                async function getUserInfo() {
+                     axios.post('https://glacial-springs-53214.herokuapp.com/getInfo',{
+                     username: {name},
+                     })
+                     .then(function (response) {
+                        const email_nokEmail = response.split(',');
+                        setEmail(email_nokEmail[0])
+                        setNokEmail(email_nokEmail[1])
+
+                     })
+                     .catch(function (error) {
+                        console.log(error);
+                     })}
+
+                getUserInfo();
+               );
 
 
   return (
@@ -37,7 +55,7 @@ export default function profileScreen({ navigation }) {
       <View style={styles.inputView}>
               <TextInput
                 style={styles.TextInput}
-                placeholder="Username..."
+                placeholder = {name}
                 placeholderTextColor="#003f5c"
                 onChangeText={(username) => setUser(username)}
               />
@@ -46,61 +64,48 @@ export default function profileScreen({ navigation }) {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Password..."
+          placeholder="Email..."
           placeholderTextColor="#003f5c"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
+          onChangeText={(email) => setEmail(email)}
         />
       </View>
 
-      <TouchableOpacity
-      onPress = { () =>
-                          navigation.navigate('tempForget')
-                          }>
-        <Text style={styles.forgot_button}>Forgot Password?</Text>
-      </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress = { () =>
-                    navigation.navigate("signup")
-                 }>
-        <Text style={styles.signUp_button}>Sign up</Text>
-      </TouchableOpacity>
+      <View style={styles.inputView}>
+              <TextInput
+                style={styles.TextInput}
+                placeholder="Next of Kin email..."
+                placeholderTextColor="#003f5c"
+                onChangeText={(nokEmail) => setNokEmail(nokEmail)}
+              />
+            </View>
 
 
       <TouchableOpacity
       onPress = {
                     async () =>
-                    axios.post('https://glacial-springs-53214.herokuapp.com/login',{
+                    axios.post('https://glacial-springs-53214.herokuapp.com/updateInfo',{
+                    name: {name},
                     username: username,
-                    password: password
+                    email: email,
+                    nokEmail: nokEmail,
                     })
                     .then(function (response) {
-                    if (response.data === "login"){
+                    if (response.data === "success"){
                       showMessage({
                           message: "success!",
-                          description: "You have been logged in successfully",
+                          description: "Your information has been updated successfully",
                           type: "success",
                                           })
 
                       navigation.navigate("Home", {name: username});
                       }
 
-                      else if(response.data === "incorrect password") {
+                      else if(response.data === "failure") {
                       showMessage({
-                         message: "Incorrect password!",
-                            description: "Click on this message to proceed to reset password",
+                         message: "Whoops!",
+                            description: "username or email has already been taken",
                             type: "warning",
-                            onPress : () => {navigation.navigate("tempForget"), {name: username} }
-                      })
-                      }
-
-                      else {
-                       showMessage({
-                          message: "No user found!",
-                          description: "Click on this message to proceed to create an account",
-                          type: "warning",
-                          onPress : () => {navigation.navigate("signup")}
                       })
                       }
 
@@ -110,7 +115,7 @@ export default function profileScreen({ navigation }) {
                                     })}
       style={styles.loginBtn}
       >
-        <Text>LOGIN</Text>
+        <Text>UPDATE PROFILE</Text>
       </TouchableOpacity>
     </View>
   );
@@ -170,4 +175,3 @@ const styles = StyleSheet.create({
   marginBottom: 30,
   }
 });
-

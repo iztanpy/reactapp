@@ -71,10 +71,11 @@ let [fontsLoaded] = useFonts({
                     } else {
 
     return (
+    //        <Image style = {styles.bigLogo} source={require("../assets/logo2.png")} />
 
         <View style={styles.container}>
 
-        <Image style = {styles.bigLogo} source={require("../assets/logo2.png")} />
+
         <Text style = {styles.Headertext}> you are logged in as {name} </Text>
 
         <TouchableOpacity style = {styles.button1}
@@ -106,6 +107,17 @@ let [fontsLoaded] = useFonts({
                       </TouchableOpacity>
 
 
+
+
+
+        <TouchableOpacity
+                              style={styles.button4}
+                              onPress = { () => {
+                              navigation.navigate('profile', {name: name})
+                                                                }}>
+                              <Text style = {styles.Maintext}>Profile</Text>
+                                        <Text style = {styles.subtext}>View and edit your profile here!</Text>
+                              </TouchableOpacity>
         </View>
         );}
 
@@ -162,6 +174,17 @@ const styles = StyleSheet.create({
       marginTop: 20,
       backgroundColor: "#F05454",
       },
+
+
+      button4 : {
+            width: 350,
+            borderRadius: 25,
+            height: 120,
+            alignItems: "flex-start",
+            justifyContent: "center",
+            marginTop: 20,
+            backgroundColor: "#385a7c",
+            },
 
 
 
