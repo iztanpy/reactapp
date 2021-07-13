@@ -13,6 +13,21 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import FlashMessage from "react-native-flash-message";
+import AppLoading from 'expo-app-loading';
+import {
+  useFonts,
+  Inter_100Thin,
+  Inter_200ExtraLight,
+  Inter_300Light,
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+  Inter_800ExtraBold,
+  Inter_900Black,
+} from '@expo-google-fonts/inter';
+
+
 
 
 export default function tempHomeScreen({ route, navigation }) {
@@ -20,6 +35,17 @@ export default function tempHomeScreen({ route, navigation }) {
 const {name} = route.params;
 //const {username} = route.params;
 //console.log(JSON.stringify(username));
+let [fontsLoaded] = useFonts({
+                          Inter_100Thin,
+                          Inter_200ExtraLight,
+                          Inter_300Light,
+                          Inter_400Regular,
+                          Inter_500Medium,
+                          Inter_600SemiBold,
+                          Inter_700Bold,
+                          Inter_800ExtraBold,
+                          Inter_900Black,
+                        });
 
  React.useEffect(
                 () =>
@@ -40,56 +66,63 @@ const {name} = route.params;
                     );
                   }),
                   );
+                  if (!fontsLoaded) {
+                      return <AppLoading />;
+                    } else {
+
     return (
+    //        <Image style = {styles.bigLogo} source={require("../assets/logo2.png")} />
 
         <View style={styles.container}>
 
-        <Image style = {styles.bigLogo} source={require("../assets/logo2.png")} />
 
-        <TouchableOpacity style = {styles.button}
+        <Text style = {styles.Headertext}> you are logged in as {name} </Text>
+
+        <TouchableOpacity style = {styles.button1}
           onPress = {() => {
-            navigation.navigate('tutorial',{name:name})
+            navigation.navigate('Tutorial1',{name:name})
           }}>
           
-          <Text>Tutorial</Text>
+          <Text style = {styles.Maintext}>Tutorial</Text>
+          <Text style = {styles.subtext}>click here if its the first time using the app!</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-              style={styles.button}
-              onPress = { () => {
-              navigation.navigate('camera',{name: name})
-                                  }}>
-                <Text>Start app!</Text>
-              </TouchableOpacity>
+                      style={styles.button2}
+                      onPress = { () => {
+                      navigation.navigate('calibration', {name: name})
+                                                        }}>
+                      <Text style = {styles.Maintext}>Calibration</Text>
+                                <Text style = {styles.subtext}>make the application more accurate</Text>
+                                <Text style = {styles.subtext}>by spending 30s to calibrate before using!</Text>
+                      </TouchableOpacity>
 
         <TouchableOpacity
-              style={styles.button}
-              onPress = { () => {
-              navigation.navigate('calibration', {name: name})}}>
-              <Text>Calibrate</Text>
-            </TouchableOpacity>
+                      style={styles.button3}
+                      onPress = { () => {
+                      navigation.navigate('camera',{name: name})
+                                          }}>
+                      <Text style = {styles.Maintext}>Start the application!</Text>
+                                                      <Text style = {styles.subtext}>remember to drive safe!</Text>
+                      </TouchableOpacity>
+
+
+
+
+
 
         <TouchableOpacity
-            style={styles.button}
-            onPress = { () => {
-            navigation.navigate('nok', {name: name})}}>
-            <Text>Next of kin</Text>            
-          </TouchableOpacity>
-
-
+                              style={styles.button4}
+                              onPress = { () => {
+                              navigation.navigate('profile', {name: name})
+                                                                }}>
+                              <Text style = {styles.Maintext}>Profile</Text>
+                                        <Text style = {styles.subtext}>View and edit your profile here!</Text>
+                              </TouchableOpacity>
         </View>
-        );
+        );}
 
 }
-
-//        <View style={styles.Menu}>
-//                    <TouchableOpacity activeOpacity = { .5 } onPress={ () => navigation.openDrawer()}>
-//                    <Image
-//                    style={styles.image}
-//                    source={require("../assets/tempmenu2.png")}
-//                    />
-//                    </TouchableOpacity>
-//        </View>
 
 
 const styles = StyleSheet.create({
@@ -100,15 +133,6 @@ const styles = StyleSheet.create({
       justifyContent: "center",
     },
 
-  Menu: {
-    flex: 1,
-    backgroundColor: "#1abc9c",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    flexDirection: "row",
-    width: 250,
-    height: 250,
-  },
 
   bigLogo: {
       height: 200,
@@ -122,20 +146,75 @@ const styles = StyleSheet.create({
   padding: 10,
   },
 
-  button: {
-    width: 150,
+  button1: {
+    width: 350,
     borderRadius: 25,
-    height: 50,
-    alignItems: "center",
+    height: 120,
+    alignItems: "flex-start",
     justifyContent: "center",
     marginTop: 20,
-    backgroundColor: "#F05454",
+    backgroundColor: "#0c8a06",
     },
 
-  text: {
-  color : "white",
-  fontSize: 20,
+  button2: {
+      width: 350,
+      borderRadius: 25,
+      height: 120,
+      alignItems: "flex-start",
+      justifyContent: "center",
+      marginTop: 20,
+      backgroundColor: "#ebb734",
+      },
 
-  }
+  button3 : {
+      width: 350,
+      borderRadius: 25,
+      height: 120,
+      alignItems: "flex-start",
+      justifyContent: "center",
+      marginTop: 20,
+      backgroundColor: "#F05454",
+      },
+
+
+      button4 : {
+            width: 350,
+            borderRadius: 25,
+            height: 120,
+            alignItems: "flex-start",
+            justifyContent: "center",
+            marginTop: 20,
+            backgroundColor: "#385a7c",
+            },
+
+
+
+  Headertext: {
+    textAlign: "center",
+    color : "white",
+    fontSize: 15,
+    fontFamily: 'Inter_600SemiBold',
+    },
+
+
+  Maintext: {
+  textAlign: "center",
+  color : "black",
+  fontFamily: 'Inter_800ExtraBold',
+  fontSize: 25,
+  left: 25 ,
+  bottom:10,
+
+
+  },
+  subtext: {
+    textAlign: "center",
+    color : "black",
+    fontFamily: 'Inter_300Light',
+    fontSize: 15,
+    left: 25 ,
+
+
+    }
 
   })
