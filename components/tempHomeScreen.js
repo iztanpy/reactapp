@@ -53,6 +53,7 @@ const {name} = route.params;
           
           <Text>Tutorial</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
               style={styles.button}
               onPress = { () => {
@@ -62,12 +63,18 @@ const {name} = route.params;
               </TouchableOpacity>
 
         <TouchableOpacity
-                      style={styles.button}
-                      onPress = { () => {
-                      navigation.navigate('calibration', {name: name})
-                                                        }}>
-                        <Text>Calibrate</Text>
-                      </TouchableOpacity>
+              style={styles.button}
+              onPress = { () => {
+              navigation.navigate('calibration', {name: name})}}>
+              <Text>Calibrate</Text>
+            </TouchableOpacity>
+
+        <TouchableOpacity
+            style={styles.button}
+            onPress = { () => {
+            navigation.navigate('nok', {name: name})}}>
+            <Text>Next of kin</Text>            
+          </TouchableOpacity>
 
 
         </View>

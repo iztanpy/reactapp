@@ -28,14 +28,14 @@ export default function SleepDetector({route, navigation}) {
   const cameraRef = useRef(null)
   const [sound, setSound] = React.useState();
   const [record, setRecord] = useState(false);
-
   const {name} = route.params;
+
+  let count = 0;
   
 
 
   let item;
   axios.post('https://glacial-springs-53214.herokuapp.com/get_value',{name:name})
-
   .then(function(response){item = parseFloat(response.data);
   console.log(item);})
   .catch(function(error) {})
@@ -111,6 +111,7 @@ export default function SleepDetector({route, navigation}) {
             if (parseFloat(response.data) < item) {
               console.log(response.data)
               console.log('yes');
+              count++;
               playSound();
               
               

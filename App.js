@@ -8,12 +8,13 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import logInScreen from './components/logInScreen';
 import signUpScreen from './components/signUpScreen';
-import cameraScreen from './components/cameraScreen';
+
 import tempHomeScreen from './components/tempHomeScreen';
 import tempForgetScreen from './components/tempForgetScreen';
 import sleepDetector from './components/sleepDetector';
 import Calibration from './components/Calibration';
 import Tutorial from './components/Tutorial'
+import NextOfKin from './components/NextOfKin'
 
 import FlashMessage from "react-native-flash-message";
 
@@ -52,6 +53,7 @@ export default function App() {
               <Stack.Screen name="signup" component={signUpScreen} />
               <Stack.Screen name="tempForget" component={tempForgetScreen} />
               <Stack.Screen name= "Home" component={tempHomeScreen} />
+              <Stack.Screen name = 'nok' component={NextOfKin}></Stack.Screen>
               <Stack.Screen name= "camera" component={sleepDetector} options={{unmountOnBlur: true}}/>
               <Stack.Screen name= "calibration" component={Calibration} options={{unmountOnBlur: true}}/>
               <Stack.Screen name = "tutorial" component={Tutorial} options={{unmountOnBlur: true}}/>
