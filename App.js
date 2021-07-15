@@ -19,7 +19,8 @@ import Tutorial1 from './components/tutorial1'
 import Tutorial2 from './components/tutorial2'
 import Tutorial3 from './components/tutorial3'
 import profileScreen from './components/profileScreen'
-
+import information from './components/information';
+import nok from './components/nok';
 import FlashMessage from "react-native-flash-message";
 
 
@@ -57,13 +58,15 @@ export default function App() {
               <Stack.Screen name="signup" component={signUpScreen} />
               <Stack.Screen name="tempForget" component={tempForgetScreen} />
               <Stack.Screen name= "Home" component={tempHomeScreen} />
-              <Stack.Screen name = 'nok' component={NextOfKin}></Stack.Screen>
+              <Stack.Screen name = "information" component={information}/>
               <Stack.Screen name= "camera" component={sleepDetector} options={{unmountOnBlur: true}}/>
               <Stack.Screen name= "calibration" component={Calibration} options={{unmountOnBlur: true}}/>
               <Stack.Screen name = "Tutorial1" component={Tutorial1} options={{unmountOnBlur: true}}/>
               <Stack.Screen name = "Tutorial2" component={Tutorial2} options={{unmountOnBlur: true}}/>
               <Stack.Screen name = "Tutorial3" component={Tutorial3} options={{unmountOnBlur: true}}/>
               <Stack.Screen name = "profile" component={profileScreen} options={{unmountOnBlur: true}}/>
+              <Stack.Screen name = "nok" component={nok} options={{unmountOnBlur: true}}/>
+              
             </Stack.Navigator>
           </NavigationContainer>
           <FlashMessage position="top" />

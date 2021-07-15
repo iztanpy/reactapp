@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState,useEffect,useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,7 +8,7 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
-  ActivityIndicator,
+  ActivityIndicator, KeyboardAvoidingView
 } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -22,21 +22,27 @@ const axios = require('axios').default;
 
 
 
-export default function loginScreen({route, navigation}) {
+export default function profileScreen({route, navigation}) {
   const {name} = route.params;
   const [email, setEmail] = useState("");
   const [username, setUser] = useState("");
   const [nokEmail, setNokEmail] = useState("");
+  const [password,setPassword] = useState("")
+
+  const [forDisplayUsername,setForDisplayUsername] = useState("");
+  const [forDisplayEmail,setForDisplayEmail] = useState("");
 
   useEffect(() => {
                 async function getUserInfo() {
-                     axios.post('https://glacial-springs-53214.herokuapp.com/getInfo',{
-                     username: {name},
+                     axios.post('https://glacial-springs-53214.herokuapp.com/getInfoPersonal',{
+                     username: name,
                      })
                      .then(function (response) {
-                        const email_nokEmail = response.split(',');
-                        setEmail(email_nokEmail[0])
-                        setNokEmail(email_nokEmail[1])
+                        const email_Username = response.data.split(',');
+                        
+                        setForDisplayUsername(email_Username[1])
+                        setForDisplayEmail(email_Username[0])
+                        
 
                      })
                      .catch(function (error) {
@@ -44,51 +50,69 @@ export default function loginScreen({route, navigation}) {
                      })}
 
                 getUserInfo();
-               );
+                    }
+               ,[])
 
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS == "ios" ? "padding" : "height"}>
     <Image style={styles.image} source={require("../assets/logo2.png")} />
       <StatusBar style="auto" />
-
-      <View style={styles.inputView}>
+      <Text> Your username is {forDisplayUsername} {"\n"} Your email is {forDisplayEmail} {"\n"} Enter your new desired values if you wish to change them!  </Text>
+      <KeyboardAvoidingView style={styles.inputView}
+      >
               <TextInput
                 style={styles.TextInput}
-                placeholder = {name}
+                placeholder = 'Enter name...'
                 placeholderTextColor="#003f5c"
                 onChangeText={(username) => setUser(username)}
               />
-            </View>
+            </KeyboardAvoidingView>
 
-      <View style={styles.inputView}>
+      <KeyboardAvoidingView style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="Email..."
           placeholderTextColor="#003f5c"
           onChangeText={(email) => setEmail(email)}
         />
-      </View>
+      </KeyboardAvoidingView>
 
 
-      <View style={styles.inputView}>
-              <TextInput
-                style={styles.TextInput}
-                placeholder="Next of Kin email..."
-                placeholderTextColor="#003f5c"
-                onChangeText={(nokEmail) => setNokEmail(nokEmail)}
-              />
-            </View>
+      
 
+
+      <KeyboardAvoidingView style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Enter your account password..."
+          placeholderTextColor="#003f5c"
+          onChangeText={(password) => setPassword(password)}
+        />
+      </KeyboardAvoidingView>
 
       <TouchableOpacity
       onPress = {
-                    async () =>
-                    axios.post('https://glacial-springs-53214.herokuapp.com/updateInfo',{
-                    name: {name},
+                async () =>{
+                    if(password ==='') {
+                      showMessage({message:"Please enter your password",type:'Warning'})
+                  }
+                  
+                  else {
+                  const response = await axios.post('https://glacial-springs-53214.herokuapp.com/login',{username:name,
+                password:password})
+                  if(username === ''){
+                    showMessage({message:"Please enter a new username"})
+
+                  }
+                    
+                  else if(response.data === 'login') {
+                    axios.post('https://glacial-springs-53214.herokuapp.com/updateInfoName',{
+                    name: name,
+                    
                     username: username,
-                    email: email,
-                    nokEmail: nokEmail,
+                    
+                   
                     })
                     .then(function (response) {
                     if (response.data === "success"){
@@ -104,7 +128,7 @@ export default function loginScreen({route, navigation}) {
                       else if(response.data === "failure") {
                       showMessage({
                          message: "Whoops!",
-                            description: "username or email has already been taken",
+                            description: "Username has already been taken",
                             type: "warning",
                       })
                       }
@@ -112,12 +136,79 @@ export default function loginScreen({route, navigation}) {
                       })
                     .catch(function (error) {
                                     console.log(error);
-                                    })}
+                                    })
+                                  }
+                    else if(response.data === "incorrect password") {
+                      showMessage({message: "Wrong password", description: "Please try again",type:'danger'})
+                    }
+                                  }
+                  
+                                }
+                  }
+                                  
       style={styles.loginBtn}
       >
-        <Text>UPDATE PROFILE</Text>
+        <Text>UPDATE USERNAME</Text>
       </TouchableOpacity>
-    </View>
+
+      <TouchableOpacity
+      onPress = {
+                    async () =>{
+                    if(password ==='') {
+                      showMessage({message:"Please enter your password",type:'Warning'})
+                    }
+                  else {
+                  const response = await axios.post('https://glacial-springs-53214.herokuapp.com/login',{username:name,
+                password:password})
+                    
+                   if(response.data === 'login') {
+                    axios.post('https://glacial-springs-53214.herokuapp.com/updateInfoEmail',{
+                    name: name,
+                    
+                    email: email,
+                    
+                   
+                    })
+                    .then(function (response) {
+                    if (response.data === "success"){
+                      showMessage({
+                          message: "success!",
+                          description: "Your email has been updated successfully",
+                          type: "success",
+                                          })
+
+                      navigation.navigate("Home", {name: name});
+                      }
+
+                      else if(response.data === "failure") {
+                      showMessage({
+                         message: "Whoops!",
+                            description: "Email has already been taken",
+                            type: "warning",
+                      })
+                      }
+
+                      })
+                    .catch(function (error) {
+                                    console.log(error);
+                          } )
+                      }
+                    else if(response.data === "incorrect password") {
+                      showMessage({message: "Wrong password", description: "Please try again",type:'danger'})
+                    }
+                                  }
+                  
+                                }
+                  }
+                                  
+      style={styles.loginBtn}
+      >
+        <Text>UPDATE EMAIL</Text>
+      </TouchableOpacity>
+
+
+      
+    </KeyboardAvoidingView>
   );
 }
 
@@ -165,7 +256,8 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    marginTop: 10,
+    marginBottom:20,
     backgroundColor: "#F05454",
   },
 

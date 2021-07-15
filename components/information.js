@@ -30,7 +30,7 @@ import {
 
 
 
-export default function tempHomeScreen({ route, navigation }) {
+export default function information({ route, navigation }) {
 
 const {name} = route.params;
 //const {username} = route.params;
@@ -47,25 +47,6 @@ let [fontsLoaded] = useFonts({
                           Inter_900Black,
                         });
 
- React.useEffect(
-                () =>
-                  navigation.addListener('beforeRemove', (e) => {
-                    e.preventDefault();
-
-                    Alert.alert(
-                      'Exit App?',
-                      'Going back on this screen will cause you to be logged out!',
-                      [
-                        { text: "Don't leave", style: 'cancel', onPress: () => {} },
-                        {
-                          text: 'Log Out',
-                          style: 'destructive',
-                          onPress: () => navigation.dispatch(e.data.action),
-                        },
-                      ]
-                    );
-                  }),
-                  );
                   if (!fontsLoaded) {
                       return <AppLoading />;
                     } else {
@@ -73,54 +54,33 @@ let [fontsLoaded] = useFonts({
     return (
     //        <Image style = {styles.bigLogo} source={require("../assets/logo2.png")} />
 
-        <View style={styles.container}>
-
-
-        <Text style = {styles.Headertext}> you are logged in as {name} </Text>
+        <View style={styles.container}>        
 
         <TouchableOpacity style = {styles.button1}
           onPress = {() => {
-            navigation.navigate('Tutorial1',{name:name})
+            navigation.navigate('profile',{name:name})
           }}>
           
-          <Text style = {styles.Maintext}>Tutorial</Text>
-          <Text style = {styles.subtext}>click here if its the first time using the app!</Text>
+          <Text style = {styles.Maintext}>Personal Information</Text>
+          <Text style = {styles.subtext}>Click here to change your personal information </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
                       style={styles.button2}
                       onPress = { () => {
-                      navigation.navigate('calibration', {name: name})
+                      navigation.navigate('nok', {name: name})
                                                         }}>
-                      <Text style = {styles.Maintext}>Calibration</Text>
-                                <Text style = {styles.subtext}>make the application more accurate</Text>
-                                <Text style = {styles.subtext}>by spending 30s to calibrate before using!</Text>
+                      <Text style = {styles.Maintext}>Setting up Next of Kin</Text>
+                                <Text style = {styles.subtext}> Click here to set up a next of kin who would receive your location updates as you fall asleep</Text>
+                                
                       </TouchableOpacity>
 
-        <TouchableOpacity
-                      style={styles.button3}
-                      onPress = { () => {
-                      navigation.navigate('camera',{name: name})
-                                          }}>
-                      <Text style = {styles.Maintext}>Start the application!</Text>
-                                                      <Text style = {styles.subtext}>remember to drive safe!</Text>
-                      </TouchableOpacity>
-
-
-
-
-
-
-        <TouchableOpacity
-                              style={styles.button4}
-                              onPress = { () => {
-                              navigation.navigate('information', {name: name})
-                                                                }}>
-                              <Text style = {styles.Maintext}>Profile</Text>
-                                        <Text style = {styles.subtext}>View and edit your profile here!</Text>
-                              </TouchableOpacity>
+        
         </View>
-        );}
+
+        )
+        
+    }
 
 }
 

@@ -16,6 +16,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Camera } from 'expo-camera';
 import { Audio } from 'expo-av';
 import { showMessage, hideMessage } from "react-native-flash-message";
+import * as Location from 'expo-location'
 
 
 const axios = require('axios').default;
@@ -59,6 +60,18 @@ export default function SleepDetector({route, navigation}) {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+
     })();
   }, []);
 
@@ -107,11 +120,30 @@ export default function SleepDetector({route, navigation}) {
 
   const onPictureSaved =async (photo) => {
           await axios.post("https://glacial-springs-53214.herokuapp.com/video_player/" + name, {picture: photo})
-          .then (function (response) {
+          .then (async function (response) {
             if (parseFloat(response.data) < item) {
               console.log(response.data)
               console.log('yes');
               count++;
+              console.log(count);
+              if(count > 0 && count % 10 == 0){
+                const location = await Location.getCurrentPositionAsync({}).then((location) => {
+                  axios.post("https://glacial-springs-53214.herokuapp.com/send_location",{username:name,
+                  latitude: JSON.stringify(location.coords.latitude)
+                  ,longitude: JSON.stringify(location.coords.longitude)})
+                  .then(function (response) {
+                  console.log(response.data)
+                  if(response.data === 'sent email') {
+                  showMessage({message:'Sent an email to your next of kin',description:'Your next of kin has been notified of your current location'})
+                  }
+                  
+                }).catch(function (error) {
+                  console.log(error);
+                });
+                
+                })
+
+              }
               playSound();
               
               
