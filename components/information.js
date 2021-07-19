@@ -62,18 +62,18 @@ let [fontsLoaded] = useFonts({
           }}>
           
           <Text style = {styles.Maintext}>Personal Information</Text>
-          <Text style = {styles.subtext}>Click here to change your personal information </Text>
+          <Text style = {styles.subtext}>Click here to change your personal </Text>
+          <Text style = {styles.subtext}>information </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-                      style={styles.button2}
-                      onPress = { () => {
-                      navigation.navigate('nok', {name: name})
-                                                        }}>
-                      <Text style = {styles.Maintext}>Setting up Next of Kin</Text>
-                                <Text style = {styles.subtext}> Click here to set up a next of kin who would receive your location updates as you fall asleep</Text>
+        <TouchableOpacity style={styles.button2}
+            onPress = { () => {
+            navigation.navigate('nok', {name: name})}}>
+            <Text style = {styles.Maintext}>Setting up Next of Kin</Text>
+            <Text style = {styles.subtext}>Click here to set up a NOK to receive</Text>
+            <Text style = {styles.subtext}>your location updates if you fall asleep</Text>
                                 
-                      </TouchableOpacity>
+            </TouchableOpacity>
 
         
         </View>
@@ -88,7 +88,7 @@ let [fontsLoaded] = useFonts({
 const styles = StyleSheet.create({
   container: {
       flex: 1,
-      backgroundColor: "#1abc9c",
+      backgroundColor: "#fffdd0",
       alignItems: "center",
       justifyContent: "center",
     },

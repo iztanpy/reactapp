@@ -259,12 +259,12 @@ export default function SleepDetector({route, navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#222831",
+    backgroundColor: "#fffdd0",
   },
 
   guardContainer: {
     flex:1,
-    backgroundColor: "#1abc9c",
+    backgroundColor: "#fffdd0",
     alignItems: "center",
     justifyContent: "center",
 

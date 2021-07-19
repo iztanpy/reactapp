@@ -42,12 +42,12 @@ export default function nok({route, navigation}) {
                      })
                      .then(function (response) {
                          if (response.data === 'nothing') {
-                             setForDisplayNokEmail('You have not yet set up a next of kin. Please enter a valid email address below in order to set up.')
+                             setForDisplayNokEmail('Enter nok email here!')
                          }
                         else {
                         const nok_status = response.data.split(',');
                         
-                        setForDisplayNokEmail('Your current next of kin email address is '+ nok_status[0])
+                        setForDisplayNokEmail(nok_status[0])
                         setVerificationStatus(nok_status[1])
                         }
                         
@@ -59,7 +59,7 @@ export default function nok({route, navigation}) {
 
                 getUserInfo();
                     }
-               ,[])
+               )
 
 
   return (
@@ -67,14 +67,14 @@ export default function nok({route, navigation}) {
     <Image style={styles.image} source={require("../assets/logo2.png")} />
       <StatusBar style="auto" />
 
-    <Text>{forDisplayNokEmail + "\n" + verificationStatus} </Text>
-      
+    <Text>{verificationStatus} </Text>
+
 
 
       <KeyboardAvoidingView style={styles.inputView}>
               <TextInput
                 style={styles.TextInput}
-                placeholder="Next of Kin email..."
+                placeholder= {forDisplayNokEmail}
                 placeholderTextColor="#003f5c"
                 onChangeText={(nokEmail) => setNokEmail(nokEmail)}
               />
@@ -117,13 +117,10 @@ export default function nok({route, navigation}) {
                     if (response.data === "success"){
                       showMessage({
                           message: "Success!",
-                          description: "Your information has been updated successfully",
+                          description: "Your information has been updated successfully, now click on verify and key in the code in your NOK email!",
                           type: "success",
                                           })
-
-                     
-
-                      navigation.navigate("information", {name: name});
+                          setDialogVisibility(true)
                       }
 
                       else if(response.data === "failure") {
@@ -143,21 +140,23 @@ export default function nok({route, navigation}) {
       style={styles.loginBtn}
       >
         <Text>UPDATE NEXT OF KIN</Text>
+
       </TouchableOpacity>
 
-      <TouchableOpacity style = {styles.loginBtn} onPress = {() => {
-          if(verificationStatus ==='You have already verified the next of kin email') {
-              showMessage({message:'Alert',description:'You have already verified this email!',type:'Warning'})
-          } else if (forDisplayNokEmail === 'You have not yet set up a next of kin. Please enter a valid email address below in order to set up.' ) {
-              showMessage({message:'Alert',description:'You have not set up an email address as your Next of Kin. Please do so first.'})
 
-          } else {
-              setDialogVisibility(true)
+            <TouchableOpacity style = {styles.loginBtn} onPress = {() => {
+                if(verificationStatus ==='You have already verified the next of kin email') {
+                    showMessage({message:'Alert',description:'You have already verified this email!',type:'Warning'})
+                } else if (forDisplayNokEmail === 'You have not yet set up a next of kin. Please enter a valid email address below in order to set up.' ) {
+                    showMessage({message:'Alert',description:'You have not set up an email address as your Next of Kin. Please do so first.'})
 
-          }
-      }}>
-          <Text>VERIFY NOK EMAIL ADDRESS </Text>
-      </TouchableOpacity>
+                } else {
+                    setDialogVisibility(true)
+
+                }
+            }}>
+                <Text>VERIFY NOK EMAIL ADDRESS </Text>
+            </TouchableOpacity>
     
 
 
@@ -188,10 +187,12 @@ export default function nok({route, navigation}) {
   );
 }
 
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1abc9c",
+    backgroundColor: "#fffdd0",
     alignItems: "center",
     justifyContent: "center",
   },

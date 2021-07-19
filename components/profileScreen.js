@@ -57,13 +57,13 @@ export default function profileScreen({route, navigation}) {
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS == "ios" ? "padding" : "height"}>
     <Image style={styles.image} source={require("../assets/logo2.png")} />
+    <Text style={styles.text}> Leave the fields which you dont want to update empty and hit enter when youre done updating!</Text>
       <StatusBar style="auto" />
-      <Text> Your username is {forDisplayUsername} {"\n"} Your email is {forDisplayEmail} {"\n"} Enter your new desired values if you wish to change them!  </Text>
       <KeyboardAvoidingView style={styles.inputView}
       >
               <TextInput
                 style={styles.TextInput}
-                placeholder = 'Enter name...'
+                placeholder = {forDisplayUsername}
                 placeholderTextColor="#003f5c"
                 onChangeText={(username) => setUser(username)}
               />
@@ -72,7 +72,7 @@ export default function profileScreen({route, navigation}) {
       <KeyboardAvoidingView style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Email..."
+          placeholder={forDisplayEmail}
           placeholderTextColor="#003f5c"
           onChangeText={(email) => setEmail(email)}
         />
@@ -103,16 +103,12 @@ export default function profileScreen({route, navigation}) {
                 password:password})
                   if(username === ''){
                     showMessage({message:"Please enter a new username"})
-
                   }
                     
                   else if(response.data === 'login') {
                     axios.post('https://glacial-springs-53214.herokuapp.com/updateInfoName',{
                     name: name,
-                    
                     username: username,
-                    
-                   
                     })
                     .then(function (response) {
                     if (response.data === "success"){
@@ -206,16 +202,17 @@ export default function profileScreen({route, navigation}) {
         <Text>UPDATE EMAIL</Text>
       </TouchableOpacity>
 
-
       
     </KeyboardAvoidingView>
   );
 }
 
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1abc9c",
+    backgroundColor: "#fffdd0",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -223,6 +220,11 @@ const styles = StyleSheet.create({
   image: {
     marginBottom: 40,
   },
+
+  text: {
+      padding: 20,
+      marginBottom: 20,
+    },
 
   inputView: {
     backgroundColor: "#DDDDDD",
@@ -267,3 +269,73 @@ const styles = StyleSheet.create({
   marginBottom: 30,
   }
 });
+
+
+//<TouchableOpacity
+//            onPress = {
+//                      async () =>{
+//                          if(password ==='') {
+//                            showMessage({message:"Please enter your password",type:'Warning'})
+//                        }
+//
+//                        else {
+//                        const response = await axios.post('https://glacial-springs-53214.herokuapp.com/login',{username:name,
+//                      password:password})
+//
+//                        if(response.data === 'login') {
+//                          axios.post('https://glacial-springs-53214.herokuapp.com/updateInfo',{
+//                          name: name,
+//                          username: username,
+//                          email: email,
+//                          })
+//                          .then(function (response) {
+//                          console.log(response.data);
+//                          if (response.data === "success"){
+//                            showMessage({
+//                                message: "success!",
+//                                description: "Your information has been updated successfully",
+//                                type: "success",
+//                                                })
+//                            if (username === "") {
+//                                username = name;
+//                            }
+//                                navigation.navigate("Home",{name:name} );
+//
+//                            }
+//
+//                            else if(response.data === "Emailfailure") {
+//                            showMessage({
+//                               message: "Whoops!",
+//                                  description: "Email has already been taken",
+//                                  type: "warning",
+//                            })
+//                            }
+//
+//                            else if(response.data === "Namefailure") {
+//                            showMessage({
+//                                message: "Whoops!",
+//                                description: "Name has already been taken",
+//                                type: "warning",
+//                            })
+//                            }
+//
+//
+//                            })
+//                          .catch(function (error) {
+//                                          console.log(error);
+//                                          })
+//                                        }
+//                          else if(response.data === "incorrect password") {
+//                            showMessage({message: "Wrong password", description: "Please try again",type:'danger'})
+//                          }
+//                                        }
+//
+//                                      }
+//                        }
+//
+//            style={styles.loginBtn}
+//            >
+//              <Text>UPDATE BOth</Text>
+//            </TouchableOpacity>
+//
+//

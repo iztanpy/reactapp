@@ -117,7 +117,8 @@ let [fontsLoaded] = useFonts({
                               navigation.navigate('information', {name: name})
                                                                 }}>
                               <Text style = {styles.Maintext}>Profile</Text>
-                                        <Text style = {styles.subtext}>View and edit your profile here!</Text>
+                                        <Text style = {styles.subtext}>View and edit your profile here as well as  </Text>
+                                        <Text style = {styles.subtext}>adding NOK information</Text>
                               </TouchableOpacity>
         </View>
         );}
@@ -128,7 +129,7 @@ let [fontsLoaded] = useFonts({
 const styles = StyleSheet.create({
   container: {
       flex: 1,
-      backgroundColor: "#1abc9c",
+      backgroundColor: "#fffdd0",
       alignItems: "center",
       justifyContent: "center",
     },
@@ -191,7 +192,7 @@ const styles = StyleSheet.create({
 
   Headertext: {
     textAlign: "center",
-    color : "white",
+    color : "black",
     fontSize: 15,
     fontFamily: 'Inter_600SemiBold',
     },
