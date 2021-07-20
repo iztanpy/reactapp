@@ -102,7 +102,7 @@ export default function profileScreen({route, navigation}) {
                   const response = await axios.post('https://glacial-springs-53214.herokuapp.com/login',{username:name,
                 password:password})
                   if(username === ''){
-                    showMessage({message:"Please enter a new username"})
+                    showMessage({message:"Please enter a new username",description:"You have not entered a username."})
                   }
                     
                   else if(response.data === 'login') {
@@ -156,8 +156,13 @@ export default function profileScreen({route, navigation}) {
                   else {
                   const response = await axios.post('https://glacial-springs-53214.herokuapp.com/login',{username:name,
                 password:password})
+
+                    if(email === '') {
+                      showMessage({message:'Please enter an email address',description:'You have not entered anything in the email field'})
+
+                    }
                     
-                   if(response.data === 'login') {
+                   else if(response.data === 'login') {
                     axios.post('https://glacial-springs-53214.herokuapp.com/updateInfoEmail',{
                     name: name,
                     

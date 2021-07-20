@@ -49,11 +49,11 @@ if (!fontsLoaded) {
 
             <Text style = {styles.contenttext}>
 
-                            1. Firstly get inside your vehicle and place your mobile device such that you are fully visible. An example is shown below.
+                            1. Firstly get inside your vehicle and place your mobile device such that you are fully visible. Position yourself and look ahead as if you are driving. A correct example is shown below. 
                         </Text>
                         <Image style={styles.image} source = {require('../assets/placementdemo.png')}></Image>
                         <Text style = {styles.contenttext}>
-                            2. Next, hit the calibrate button on your device. However, you should ensure that your entire face is visible, including both your eyes and ears and the entirety of your head. A wrong example is shown below.
+                            2. Next, hit the calibrate button on your device. However, you should ensure that your entire face is visible, minimally both your eyes and the entirety of your head. This is important because any time your face is not detected, the process will terminate! A wrong example is shown below.
                         </Text>
                         <Image style={styles.image} source = {require('../assets/wrongexample.png')}></Image>
                         <TouchableOpacity style = {styles.button1}

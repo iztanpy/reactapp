@@ -51,9 +51,10 @@ if (!fontsLoaded) {
         <View style={styles.container}>
 
             <Text style = {styles.contenttext}>
-                           During calibration itself, during the first 15 seconds, keep your eyes open as much as possible (try not to blink).
+                           During calibration itself, sit in your vehicle and focus on an object infront of you like you would when driving on the road. Do not look straight at the camera as this would likely result in incorrect calibration. Also, please do not force your eyes wide open. Doing so would result in the system becoming hypersensitive. Keep them natural as much as possible while not blinking. {"\n"}
+                            During the first 15 seconds, keep your eyes open as much as possible (try not to blink).
                            During the second half of the calibration (the next 15 seconds), close your eyes fully.
-                           Do not worry about keeping track of time, there will be notifications via sound (once the process is complete) and messaging (to instruct you to close your eyes) to notify you when the calibration is done.
+                           Do not worry about keeping track of time, there will be instructions playing during the process itself to guide you. 
                         </Text>
 
                         <Video source = {require('../assets/calibrationDemo.mp4')}

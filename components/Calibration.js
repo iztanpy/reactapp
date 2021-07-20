@@ -23,15 +23,44 @@ export default function Calibration({route, navigation}) {
   const [type, setType] = useState(Camera.Constants.Type.front);
   const cameraRef = useRef(null);
   const [sound, setSound] = React.useState();
+  let faceDetected = true;
   const {name} = route.params;
 
     async function playSound() {
           const { sound } = await Audio.Sound.createAsync(
-             require('../assets/sounds/alarm2.mp3')
+             require('../assets/sounds/pristine.mp3')
           );
           setSound(sound);
           await sound.playAsync();
           };
+
+    async function playSoundCloseEyes() {
+      const { sound } = await Audio.Sound.createAsync(
+          require('../assets/sounds/CloseEyes.mp3')
+      );
+      setSound(sound);
+      await sound.playAsync();
+      };
+
+    
+    async function playSoundFinish() {
+      const { sound } = await Audio.Sound.createAsync(
+          require('../assets/sounds/CalibrationComplete.mp3')
+      );
+      setSound(sound);
+      await sound.playAsync();
+      };
+
+
+      async function playSoundTermination() {
+        const { sound } = await Audio.Sound.createAsync(
+            require('../assets/sounds/CalibrationTerminated.mp3')
+        );
+        setSound(sound);
+        await sound.playAsync();
+        };
+
+    
 
     React.useEffect(() => {
           return sound
@@ -63,7 +92,13 @@ export default function Calibration({route, navigation}) {
           .then (function (response) {
           console.log('in progress')
           console.log(name)
-          console.log(response.data);}
+          console.log(faceDetected)
+          console.log(response.data);
+          if(response.data === 'done') {
+            console.log('face not detected')
+            faceDetected = false;
+          }
+        }
           )
           .catch(function (error) {
           })
@@ -74,7 +109,7 @@ export default function Calibration({route, navigation}) {
       
         axios.post("https://glacial-springs-53214.herokuapp.com/calibration/" + name,{picture:photo, name:name, final:'true'}).then(function(response) {
             console.log(response.data);
-            playSound();
+            playSoundFinish();
             showMessage({message:"Success! Calibration complete",description:"The app is now tailored specifically for you!" });
             setTimeout(() => {
               navigation.navigate("Home",{name:name})
@@ -104,24 +139,35 @@ export default function Calibration({route, navigation}) {
                     })
                     setTimeout(() => {}, 2300);
                     let i = 0;
+                   
                     function sendData() {
     
                 
-                      if(cameraRef && i < 14) {
+                      if(cameraRef && i <= 14 && faceDetected) {
                         i++;
                         cameraRef.current.takePictureAsync({ onPictureSaved: onPictureSaved, base64: true}).
+                        
                           catch(function(err) {
                           console.log(err);
                           });
                           if(i===7) {
                             showMessage({message:"Alert",description:"Please proceed to close your eyes for the remainder of the calibration",type:"warning"})
+                            playSoundCloseEyes()
                           }
+                          
                           setTimeout(() =>{
                             sendData();
                           },2000)
                   
                       }
-                      else if (cameraRef && i >= 14) {
+                      else if(cameraRef && !faceDetected && i<=14){
+                        playSoundTermination()
+                        setTimeout(() => {
+                          navigation.navigate("Home",{name:name})
+                        },3000)
+
+                      }
+                      else if (cameraRef && i > 14) {
                          cameraRef.current.takePictureAsync({onPictureSaved: finalPicture,base64: true})
                         .then(async function (response){
                           console.log('done');
