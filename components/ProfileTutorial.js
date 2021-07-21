@@ -29,7 +29,7 @@ import AppLoading from 'expo-app-loading';
 
 
 
-export default function Tutorial1({route, navigation}) {
+export default function ProfileTutorial({route, navigation}) {
 let [fontsLoaded] = useFonts({
                           Inter_100Thin,
                           Inter_200ExtraLight,
@@ -50,14 +50,14 @@ if (!fontsLoaded) {
         <View style={styles.container}>
 
             <Text style= {styles.headertext}>
-                Hello, welcome to our calibration tutorial!
+                Hello, welcome to our profile set up tutorial!
                 </Text>
                 <Text style= {styles.contenttext}>
-                In the next few pages, we will be going over how you can calibrate the app such that it works best for you </Text>
+                In the next page, we will be going over how you can change your own profile and more importantly, set up a next of kin email who will receive alerts about your location if you are drowsy on the road for a substantial amount of time.</Text>
 
                 <TouchableOpacity style = {styles.button1}
                           onPress = {() => {
-                            navigation.navigate('Calibration Tutorial 2', {name:name})
+                            navigation.navigate('Profile Tutorial 2', {name:name})
                           }}>
 
                           <Text style = {styles.buttontext}>Tutorial next page!</Text>
@@ -120,4 +120,3 @@ const styles = StyleSheet.create({
             fontFamily: 'Inter_800ExtraBold',
             },
     })
-

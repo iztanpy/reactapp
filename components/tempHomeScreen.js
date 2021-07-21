@@ -80,11 +80,11 @@ let [fontsLoaded] = useFonts({
 
         <TouchableOpacity style = {styles.button1}
           onPress = {() => {
-            navigation.navigate('Tutorial1',{name:name})
+            navigation.navigate('Tutorial home page',{name:name})
           }}>
           
           <Text style = {styles.Maintext}>Tutorial</Text>
-          <Text style = {styles.subtext}>click here if its the first time using the app!</Text>
+          <Text style = {styles.subtext}>Click here if its the first time using the app!</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -93,7 +93,7 @@ let [fontsLoaded] = useFonts({
                       navigation.navigate('calibration', {name: name})
                                                         }}>
                       <Text style = {styles.Maintext}>Calibration</Text>
-                                <Text style = {styles.subtext}>make the application more accurate</Text>
+                                <Text style = {styles.subtext}>Make the application more accurate</Text>
                                 <Text style = {styles.subtext}>by spending 30s to calibrate before using!</Text>
                       </TouchableOpacity>
 
@@ -103,7 +103,7 @@ let [fontsLoaded] = useFonts({
                       navigation.navigate('camera',{name: name})
                                           }}>
                       <Text style = {styles.Maintext}>Start the application!</Text>
-                                                      <Text style = {styles.subtext}>remember to drive safe!</Text>
+                                                      <Text style = {styles.subtext}>Remember to drive safe!</Text>
                       </TouchableOpacity>
 
 

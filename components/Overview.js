@@ -50,17 +50,20 @@ if (!fontsLoaded) {
         <View style={styles.container}>
 
             <Text style= {styles.headertext}>
-                Hello, welcome to our calibration tutorial!
+                Hello, welcome to our app overview! We shall look step by step what happens as you use our app
                 </Text>
                 <Text style= {styles.contenttext}>
-                In the next few pages, we will be going over how you can calibrate the app such that it works best for you </Text>
+               1.First, when you start our app, your image is captured every 2 seconds. Your image is then converted to a base64 string (basically translating a photo to something a computer can understand) and sent to a backend server. {"\n"}
+               2.Next this base64 string is coverted back to a photo in the server. This photo is analysed and a number known as EAR (eye aspect ratio which is higher when eyes are open and lower when eyes are closed). This ear is then stored. {"\n"}
+               3. The backend keeps track of the most recent frames and computes the average EAR of these frames. If the value is below the calibrated threshold or the default if the user has not calibrated, it would be determined that the user is sleepy and the alarm would sound off. {"\n"}
+               4. If the user is awakened by the alarm and opens his/her eyes, the average EAR would go back above the threshold and the alarm would stop sounding.</Text>
 
                 <TouchableOpacity style = {styles.button1}
                           onPress = {() => {
-                            navigation.navigate('Calibration Tutorial 2', {name:name})
+                            navigation.navigate('Tutorial home page', {name:name})
                           }}>
 
-                          <Text style = {styles.buttontext}>Tutorial next page!</Text>
+                          <Text style = {styles.buttontext}>Go back</Text>
 
                         </TouchableOpacity>
             </View>
@@ -98,7 +101,7 @@ const styles = StyleSheet.create({
     contenttext: {
         textAlign: "center",
         color : "black",
-        fontSize: 20,
+        fontSize: 15,
         padding: 15,
         fontFamily: 'Inter_500Medium',
         },
@@ -120,4 +123,3 @@ const styles = StyleSheet.create({
             fontFamily: 'Inter_800ExtraBold',
             },
     })
-

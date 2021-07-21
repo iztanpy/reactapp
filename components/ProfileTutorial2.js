@@ -27,9 +27,7 @@ import {
 } from '@expo-google-fonts/inter';
 import AppLoading from 'expo-app-loading';
 
-
-
-export default function Tutorial1({route, navigation}) {
+export default function ProfileTutorial2({route, navigation}) {
 let [fontsLoaded] = useFonts({
                           Inter_100Thin,
                           Inter_200ExtraLight,
@@ -41,7 +39,7 @@ let [fontsLoaded] = useFonts({
                           Inter_800ExtraBold,
                           Inter_900Black,
                         });
-const {name} = route.params;
+ const {name} = route.params;
 if (!fontsLoaded) {
                       return <AppLoading />;
                     } else {
@@ -49,20 +47,23 @@ if (!fontsLoaded) {
     return (
         <View style={styles.container}>
 
-            <Text style= {styles.headertext}>
-                Hello, welcome to our calibration tutorial!
-                </Text>
-                <Text style= {styles.contenttext}>
-                In the next few pages, we will be going over how you can calibrate the app such that it works best for you </Text>
+            <Text style = {styles.contenttext}>
 
-                <TouchableOpacity style = {styles.button1}
-                          onPress = {() => {
-                            navigation.navigate('Calibration Tutorial 2', {name:name})
-                          }}>
+                            1. To change your own personal details such as username and email, click on the profile button on the home screen and go to personal information. There, you will see 3 boxes with the first one being for your username (your existing one will be shown) the second one being your email (your existing one will be shown) and lastly password. In order to change either your email or password simply enter your new one and click on the respective button to change it. If the username/email is not already taken, you will receive a success message else your change will fail and you will be notified. 
+                        </Text>
+                        
+                        <Text style = {styles.contenttext}>
+                            2. The next of kin email is to allow us to notify this person of your whereabouts in the event that you are drowsy on the road for too long. In order to set up, you have to enter the email address of this person and click on add. A verification code will be sent to this email address and you have to get it from this person and then enter it after hitting the verify next of kin button. If correct, this person will be added as your next of kin and will receive your location updates if necessary.
+                        </Text>
+                        
+                        <TouchableOpacity style = {styles.button1}
+                                                  onPress = {() => {
+                                                    navigation.navigate('information', {name:name})
+                                                  }}>
 
-                          <Text style = {styles.buttontext}>Tutorial next page!</Text>
-
+                                                  <Text style = {styles.buttontext}>Click here to set up NOK/Change profile</Text>
                         </TouchableOpacity>
+
             </View>
     )}
     }
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     contenttext: {
         textAlign: "center",
         color : "black",
-        fontSize: 20,
+        fontSize: 15,
         padding: 15,
         fontFamily: 'Inter_500Medium',
         },
@@ -119,5 +120,12 @@ const styles = StyleSheet.create({
             fontSize: 30,
             fontFamily: 'Inter_800ExtraBold',
             },
+
+
+                image:{
+                    height:200,
+                    width:200
+                },
+
     })
 

@@ -58,7 +58,7 @@ if (!fontsLoaded) {
                         <Image style={styles.image} source = {require('../assets/wrongexample.png')}></Image>
                         <TouchableOpacity style = {styles.button1}
                                                   onPress = {() => {
-                                                    navigation.navigate('Tutorial3', {name:name})
+                                                    navigation.navigate('Calibration Tutorial 3', {name:name})
                                                   }}>
 
                                                   <Text style = {styles.buttontext}>Tutorial next page!</Text>

@@ -8,6 +8,10 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+assets/sounds/CalibrationComplete.ogg
+
+assets/sounds/CloseEyes.ogg
+
 
 # macOS
 .DS_Store
