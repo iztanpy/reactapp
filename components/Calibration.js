@@ -9,6 +9,7 @@ import {
   Button,
   TouchableOpacity,
   Dimensions,
+  Platform
 } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -19,6 +20,7 @@ import { Audio } from 'expo-av';
 const axios = require('axios').default;
 
 export default function Calibration({route, navigation}) {
+  const platform = Platform.OS;
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const cameraRef = useRef(null);
@@ -88,7 +90,7 @@ export default function Calibration({route, navigation}) {
           
           axios.post("https://glacial-springs-53214.herokuapp.com/calibration/" + name, {picture: photo,
         name: name,
-    final:'false'})
+    final:'false',platform:platform})
           .then (function (response) {
           console.log('in progress')
           console.log(name)
@@ -107,7 +109,7 @@ export default function Calibration({route, navigation}) {
 
     const finalPicture = photo => {
       
-        axios.post("https://glacial-springs-53214.herokuapp.com/calibration/" + name,{picture:photo, name:name, final:'true'}).then(function(response) {
+        axios.post("https://glacial-springs-53214.herokuapp.com/calibration/" + name,{picture:photo, name:name, final:'true',platform:platform}).then(function(response) {
             console.log(response.data);
             playSoundFinish();
             showMessage({message:"Success! Calibration complete",description:"The app is now tailored specifically for you!" });
@@ -150,24 +152,24 @@ export default function Calibration({route, navigation}) {
                           catch(function(err) {
                           console.log(err);
                           });
-                          if(i===7) {
+                          if(i===5) {
                             showMessage({message:"Alert",description:"Please proceed to close your eyes for the remainder of the calibration",type:"warning"})
                             playSoundCloseEyes()
                           }
                           
                           setTimeout(() =>{
                             sendData();
-                          },2000)
+                          },3000)
                   
                       }
-                      else if(cameraRef && !faceDetected && i<=14){
+                      else if(cameraRef && !faceDetected && i<10){
                         playSoundTermination()
                         setTimeout(() => {
                           navigation.navigate("Home",{name:name})
                         },3000)
 
                       }
-                      else if (cameraRef && i > 14) {
+                      else if (cameraRef && i > 10) {
                          cameraRef.current.takePictureAsync({onPictureSaved: finalPicture,base64: true})
                         .then(async function (response){
                           console.log('done');

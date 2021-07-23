@@ -10,6 +10,7 @@ import {
   Button,
   TouchableOpacity,
   Dimensions,
+  Platform
 } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -23,6 +24,7 @@ const axios = require('axios').default;
 
 export default function SleepDetector({route, navigation}) {
 
+  const platform = Platform.OS;
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const [disableCalibration, setDisable] = useState(false);
@@ -87,7 +89,7 @@ export default function SleepDetector({route, navigation}) {
                     });
                     setTimeout(() =>{
                       sendData();
-                    },3000)
+                    },3500)
 
                 }
                 
@@ -119,7 +121,8 @@ export default function SleepDetector({route, navigation}) {
   }
 
   const onPictureSaved =async (photo) => {
-          await axios.post("https://glacial-springs-53214.herokuapp.com/video_player/" + name, {picture: photo})
+          console.log(platform);
+          await axios.post("https://glacial-springs-53214.herokuapp.com/video_player/" + name, {picture: photo,platform:platform})
           .then (async function (response) {
             if (parseFloat(response.data) < item) {
               console.log(response.data)
