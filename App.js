@@ -23,7 +23,7 @@ import information from './components/information';
 import nok from './components/nok';
 import ProfileTutorial from './components/ProfileTutorial'
 import ProfileTutorial2 from './components/ProfileTutorial2'
-import Overview from './components/Overview'
+
 import FlashMessage from "react-native-flash-message";
 
 
@@ -72,7 +72,7 @@ export default function App() {
               <Stack.Screen name = "Tutorial home page" component={TutorialHomePage} options={{unmountOnBlur: true}}/>
               <Stack.Screen name = "Profile Tutorial" component={ProfileTutorial} options={{unmountOnBlur: true}}/>
               <Stack.Screen name = "Profile Tutorial 2" component={ProfileTutorial2} options={{unmountOnBlur: true}}/>
-              <Stack.Screen name = "Overview" component={Overview} options={{unmountOnBlur: true}}/>
+              
               
             </Stack.Navigator>
           </NavigationContainer>

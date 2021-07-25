@@ -56,15 +56,7 @@ let [fontsLoaded] = useFonts({
 
         <View style={styles.container}>
 
-     <TouchableOpacity style = {styles.button3}
-          onPress = {() => {
-            navigation.navigate('Overview',{name:name})
-          }}>
-          
-          <Text style = {styles.Maintext}>Overview</Text>
-          <Text style = {styles.subtext}>Click here to learn how our app works! </Text>
-          
-        </TouchableOpacity>        
+     
 
         <TouchableOpacity style = {styles.button1}
           onPress = {() => {
