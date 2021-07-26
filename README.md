@@ -1,6 +1,6 @@
 # Stay awake stay safe
 
-Welcome to our github page! We assume that you already have node and git installed on your machine. Also, you must have installed expo on your mobile device that you intend on using. The front camera of your device must be in good working condition and have a decent resolution in order for the app to work well. Follow the instructions below to use our app.
+Welcome to our github page! We assume that you already have node and git installed on your machine. Also, you must have installed expo on your mobile device that you intend on using. The front camera of your device must be in good working condition and have a decent resolution in order for the app to work well. Follow the instructions below to use our app. On your device, remember to install the Expo Go app.
 
 On a new folder, initiate a git repository.
 
