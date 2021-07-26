@@ -10,7 +10,7 @@ import {
   Button,
   TouchableOpacity,
   Dimensions,
-  Platform
+  Platform,LogBox
 } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -19,7 +19,7 @@ import { Audio } from 'expo-av';
 import { showMessage, hideMessage } from "react-native-flash-message";
 import * as Location from 'expo-location'
 
-
+LogBox.ignoreAllLogs()
 const axios = require('axios').default;
 
 export default function SleepDetector({route, navigation}) {
@@ -97,19 +97,7 @@ export default function SleepDetector({route, navigation}) {
               sendData();
              }, [record]);
 
-               // while(record){
-              //     if(cameraRef) {
-             //       await cameraRef.current.takePictureAsync({ onPictureSaved: onPictureSaved, base64: true}).
-              //      catch(function(err) {
-              //      console.log(err);
-              //      });
-                      
-              //         setTimeout(() => {
-                        
-                //       },800)
-                  //      }
-                //   }
-                //}
+ 
                
                  
 

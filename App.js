@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator,LogBox } from 'react-native';
 
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -23,24 +23,13 @@ import information from './components/information';
 import nok from './components/nok';
 import ProfileTutorial from './components/ProfileTutorial'
 import ProfileTutorial2 from './components/ProfileTutorial2'
-
 import FlashMessage from "react-native-flash-message";
 
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-
-//function loggedInTabs() {
-//    return (
-//    <Drawer.Navigator drawerStyle = {styles.drawer} overlayColor="transparent">
-//          <Drawer.Screen name= "Home" component={tempHomeScreen} />
-//          <Drawer.Screen name= "camera" component={sleepDetector} options={{unmountOnBlur: true}}/>
-//          <Drawer.Screen name= "calibration" component={Calibration} options={{unmountOnBlur: true}}/>
-//          <Drawer.Screen name = "tutorial" component={Tutorial} options={{unmountOnBlur: true}}/>
-//        </Drawer.Navigator>
-//        );
-//        }
+LogBox.ignoreAllLogs()
 
 export default function App() {
     return (

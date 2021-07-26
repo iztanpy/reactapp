@@ -45,7 +45,7 @@ export default function ForgetScreen({ navigation }) {
                                   if (response.data === "valid"){
                                   showMessage({
                                    message: "Email has been sent",
-                                   description: "An email with your details has been sent to the email address",
+                                   description: "An email with your details has been sent to your email address. Do remember to check your spam folder!",
                                    type: "success"
                                              })}
 

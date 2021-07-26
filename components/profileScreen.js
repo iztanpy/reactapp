@@ -87,6 +87,7 @@ export default function profileScreen({route, navigation}) {
           style={styles.TextInput}
           placeholder="Enter your account password..."
           placeholderTextColor="#003f5c"
+          secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         />
       </KeyboardAvoidingView>

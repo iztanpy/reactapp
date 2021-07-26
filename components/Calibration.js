@@ -145,7 +145,7 @@ export default function Calibration({route, navigation}) {
                     function sendData() {
     
                 
-                      if(cameraRef && i <= 14 && faceDetected) {
+                      if(cameraRef && i <= 10 && faceDetected) {
                         i++;
                         cameraRef.current.takePictureAsync({ onPictureSaved: onPictureSaved, base64: true}).
                         

@@ -82,7 +82,7 @@ export default function nok({route, navigation}) {
 
             <DialogInput isDialogVisible={dialogVisibility}
                 title={"Verify email address"}
-                message={"Please enter the 6 digit code sent to " + forDisplayNokEmail.split(" ")[forDisplayNokEmail.split(" ").length - 1]}
+                message={"Please enter the 6 digit code sent to " + forDisplayNokEmail.split(" ")[forDisplayNokEmail.split(" ").length - 1] + ". Do ask them to check the spam folder."}
                 hintInput ={"Enter code..."}
                 submitInput={ (inputText) => {
                     axios.post('https://glacial-springs-53214.herokuapp.com/verify_nok',{input:inputText,
@@ -107,6 +107,10 @@ export default function nok({route, navigation}) {
                     async () =>
                     {
                     console.log(nokEmail);
+                    if(nokEmail==='') {
+                      showMessage({message:'Please enter an email address',description:"You have not entered an email",type:'warning'})
+                    }
+                    else {
                     axios.post('https://glacial-springs-53214.herokuapp.com/add_nok',{
                     name: name,
                     
@@ -125,8 +129,8 @@ export default function nok({route, navigation}) {
 
                       else if(response.data === "failure") {
                       showMessage({
-                         message: "Whoops!",
-                            description: "username or email has already been taken",
+                         message: "Invalid email",
+                            description: "Please enter a valid email address",
                             type: "warning",
                       })
                       }
@@ -136,6 +140,7 @@ export default function nok({route, navigation}) {
                                     console.log(nokEmail);
                                    
                                     })}
+                                  }
                                   }
       style={styles.loginBtn}
       >
