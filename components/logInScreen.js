@@ -15,7 +15,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import FlashMessage from "react-native-flash-message";
 import { showMessage, hideMessage } from "react-native-flash-message";
 
-import LoadingIcon from './LoadingIcon';
 
 
 const axios = require('axios').default;

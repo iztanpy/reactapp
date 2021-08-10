@@ -16,8 +16,6 @@ import FlashMessage from "react-native-flash-message";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import DialogInput from "react-native-dialog-input";
 
-import LoadingIcon from './LoadingIcon';
-
 
 const axios = require('axios').default;
 

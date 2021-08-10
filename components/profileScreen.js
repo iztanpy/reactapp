@@ -15,7 +15,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import FlashMessage from "react-native-flash-message";
 import { showMessage, hideMessage } from "react-native-flash-message";
 
-import LoadingIcon from './LoadingIcon';
 
 
 const axios = require('axios').default;
@@ -275,73 +274,3 @@ const styles = StyleSheet.create({
   marginBottom: 30,
   }
 });
-
-
-//<TouchableOpacity
-//            onPress = {
-//                      async () =>{
-//                          if(password ==='') {
-//                            showMessage({message:"Please enter your password",type:'Warning'})
-//                        }
-//
-//                        else {
-//                        const response = await axios.post('https://glacial-springs-53214.herokuapp.com/login',{username:name,
-//                      password:password})
-//
-//                        if(response.data === 'login') {
-//                          axios.post('https://glacial-springs-53214.herokuapp.com/updateInfo',{
-//                          name: name,
-//                          username: username,
-//                          email: email,
-//                          })
-//                          .then(function (response) {
-//                          console.log(response.data);
-//                          if (response.data === "success"){
-//                            showMessage({
-//                                message: "success!",
-//                                description: "Your information has been updated successfully",
-//                                type: "success",
-//                                                })
-//                            if (username === "") {
-//                                username = name;
-//                            }
-//                                navigation.navigate("Home",{name:name} );
-//
-//                            }
-//
-//                            else if(response.data === "Emailfailure") {
-//                            showMessage({
-//                               message: "Whoops!",
-//                                  description: "Email has already been taken",
-//                                  type: "warning",
-//                            })
-//                            }
-//
-//                            else if(response.data === "Namefailure") {
-//                            showMessage({
-//                                message: "Whoops!",
-//                                description: "Name has already been taken",
-//                                type: "warning",
-//                            })
-//                            }
-//
-//
-//                            })
-//                          .catch(function (error) {
-//                                          console.log(error);
-//                                          })
-//                                        }
-//                          else if(response.data === "incorrect password") {
-//                            showMessage({message: "Wrong password", description: "Please try again",type:'danger'})
-//                          }
-//                                        }
-//
-//                                      }
-//                        }
-//
-//            style={styles.loginBtn}
-//            >
-//              <Text>UPDATE BOth</Text>
-//            </TouchableOpacity>
-//
-//
